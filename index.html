@@ -228,20 +228,8 @@
       background: var(--scroll-thumb-dark);
       border: 3px solid rgba(0,0,0,0.25);
       box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-   /* دایره شبیه موس */
-.cursor {
-  width: 20px;
-  height: 20px;
-  background: rgba(0,200,255,0.8);
-  border-radius: 50%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  transform: translate(-50%, -50%);
-  transition: transform 0.1s ease;
-  z-index: 4000;
-}
+   
+
     /* اگر خواستی، می‌تونی ظاهر اسکرول‌بار را در موبایل با CSS/JS بیشتر کنترل کنی */
   </style>
 </head>
@@ -272,7 +260,6 @@
   </div>
 
 <main>
-  <div class="cursor"></div>
     <div class="menu" id="menu">
     <a href="javascript:void(0)" onclick="openCart()">🛒 سبد خرید</a>
     <a href="http://192.168.4.1" target="_blank">کنترل پنل</a>
@@ -294,7 +281,6 @@
 
   <audio id="welcome" src="welcome.mp3" preload="auto"></audio>
   <script>
-  
     const body = document.body;
     const themeBtn = document.getElementById("themeBtn");
     const menu = document.getElementById("menu");
@@ -302,25 +288,6 @@
     const cart = document.getElementById("cart");
     const logList = document.getElementById("log-list");
     const menuToggle = document.getElementById("menuToggle");
-// انیمیشن موس
-const cursor = document.querySelector(".cursor");
-let angle = 0;
-
-function animateCursor() {
-  const centerX = window.innerWidth / 2;
-  const centerY = window.innerHeight / 2;
-  const radius = 150; // شعاع حرکت دایره‌ای
-
-  const x = centerX + Math.cos(angle) * radius;
-  const y = centerY + Math.sin(angle) * radius;
-
-  cursor.style.transform = `translate(${x}px, ${y}px)`;
-  angle += 0.05;
-
-  requestAnimationFrame(animateCursor);
-}
-
-animateCursor();
 
     let userLogged = false;
     let currentUser = null;
