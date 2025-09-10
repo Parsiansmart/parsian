@@ -164,6 +164,71 @@ body {
       font-size: 0.9rem;
       color: inherit;
     }
+
+    /* --- Chat Box --- */
+    .chat-box {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      padding: 10px 15px;
+      border-radius: 40px;
+      background: rgba(255,255,255,0.1);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+      backdrop-filter: blur(10px);
+      z-index: 3000;
+      overflow: hidden;
+    }
+
+    .chat-box::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      border-radius: 40px;
+      padding: 2px;
+      background: conic-gradient(#007bff, #00e0ff, #007bff);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+              mask-composite: exclude;
+      animation: spin 4s linear infinite;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    .chat-box input {
+      border: none;
+      outline: none;
+      background: transparent;
+      color: inherit;
+      font-size: 1rem;
+      flex: 1;
+      z-index: 1;
+    }
+
+    .chat-box button {
+      border: none;
+      background: transparent;
+      font-size: 1.2rem;
+      cursor: pointer;
+      color: inherit;
+      z-index: 1;
+    }
+
+    /* حالت روشن */
+    body.light .chat-box {
+      background: #fff;
+      color: #333;
+    }
+
+    /* حالت تاریک */
+    body.dark .chat-box {
+      background: #1a1a1a;
+      color: #fff;
+    }
   </style>
 </head>
 <body class="light">
@@ -201,6 +266,13 @@ body {
   <footer>
     Created by PJA Group| 2025
   </footer>
+
+  <!-- Chat Box -->
+  <div class="chat-box">
+    <input type="text" placeholder="هر چیزی بپرس..." />
+    <button>➤</button>
+  </div>
+
    <audio id="welcome" src="welcome.mp3" preload="auto"></audio>
  <script>
   const body = document.body;
@@ -217,7 +289,7 @@ body {
   themeBtn.onclick = () => {
     body.classList.toggle("dark");
     body.classList.toggle("light");
-    themeBtn.textContent = body.classList.contains("dark") ? "☀️" : "🌙";
+    themeBtn.textContent = body.classList.contains("dark") ? "☀" : "🌙";
   };
 
   function toggleMenu() {
@@ -231,9 +303,9 @@ body {
   function loadContent(type) {
     menu.classList.remove("open");
     if (type === 'about') {
-      content.innerHTML = `<h2>درباره پروژه</h2><p>پروژه خانه هوشمند پارسیان شامل کنترل وسایل برقی، مشاهده دما، مصرف برق و تنظیمات از طریق موبایل می‌باشد.</p>`;
+      content.innerHTML = <h2>درباره پروژه</h2><p>پروژه خانه هوشمند پارسیان شامل کنترل وسایل برقی، مشاهده دما، مصرف برق و تنظیمات از طریق موبایل می‌باشد.</p>;
     } else if (type === 'contact') {
-      content.innerHTML = `<h2>ارتباط با ما</h2><p>📧 <a href="mailto:parsasoorme138700@gmail.com">parsasoorme138700@gmail.com</a></p>`;
+      content.innerHTML = <h2>ارتباط با ما</h2><p>📧 <a href="mailto:parsasoorme138700@gmail.com">parsasoorme138700@gmail.com</a></p>;
     }
   }
 
@@ -284,7 +356,7 @@ body {
     }
     let html = '<h2>لیست کاربران وارد شده:</h2><ul>';
     users.forEach(u => {
-      html += `<li>${u.name} - ${u.email} - ${u.time}</li>`;
+      html += <li>${u.name} - ${u.email} - ${u.time}</li>;
     });
     html += '</ul>';
     content.innerHTML = html;
