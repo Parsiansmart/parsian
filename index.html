@@ -194,41 +194,41 @@
     body.dark .chat-box input { background: #222; color: #fff; }
     body.dark .chat-box button { background: #fff; color: #111; }
 
-  /* ============================
-   Custom Scrollbar (WebKit)
-   ============================ */
-/* اندازهٔ اسکرول‌بار */
-::-webkit-scrollbar {
-  width: 12px;
-  height: 12px;
-}
+      /* ============================
+       Custom Scrollbar (WebKit)
+       ============================ */
+    /* اندازهٔ اسکرول‌بار */
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
 
-/* پس‌زمینهٔ ریل/تراک کاملاً شفاف */
-::-webkit-scrollbar-track {
-  background: transparent;
-}
+    /* پس‌زمینهٔ ریل/تراک */
+    ::-webkit-scrollbar-track {
+      background: var(--scroll-track);
+    }
 
-/* تکۀ قابل درگ (thumb) */
-::-webkit-scrollbar-thumb {
-  border-radius: 999px;
-  background: linear-gradient(180deg, rgba(0,123,255,0.95), rgba(0,224,255,0.95));
-  border: 3px solid rgba(255,255,255,0.06);
-  box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
-  transition: transform 120ms ease, box-shadow 120ms ease;
-}
+    /* تکۀ قابل درگ (thumb) */
+    ::-webkit-scrollbar-thumb {
+      border-radius: 999px;
+      background: var(--scroll-thumb-light);
+      border: 3px solid rgba(255,255,255,0.06);
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
 
-/* هاور روی thumb */
-::-webkit-scrollbar-thumb:hover {
-  transform: scaleY(1.06);
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.28);
-}
+    /* هاور روی thumb */
+    ::-webkit-scrollbar-thumb:hover {
+      transform: scaleY(1.06);
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.28);
+    }
 
-/* حالت تاریک */
-body.dark ::-webkit-scrollbar-thumb {
-  background: linear-gradient(180deg, rgba(0,150,255,0.95), rgba(0,200,255,0.95));
-  border: 3px solid rgba(0,0,0,0.25);
-  box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-}
+    /* رنگ برای حالت تاریک */
+    body.dark ::-webkit-scrollbar-thumb {
+      background: var(--scroll-thumb-dark);
+      border: 3px solid rgba(0,0,0,0.25);
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+   
 
     /* اگر خواستی، می‌تونی ظاهر اسکرول‌بار را در موبایل با CSS/JS بیشتر کنترل کنی */
   </style>
