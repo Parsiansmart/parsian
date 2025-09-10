@@ -8,8 +8,12 @@
     :root {
       --text-light: #222;
       --text-dark: #fff;
+      --scroll-thumb-light: linear-gradient(180deg, rgba(0,123,255,0.95), rgba(0,224,255,0.95));
+      --scroll-thumb-dark: linear-gradient(180deg, rgba(0,150,255,0.95), rgba(0,200,255,0.95));
+      --scroll-track: transparent;
     }
 
+    /* پایه صفحه */
     body {
       margin: 0;
       font-family: "Tahoma", sans-serif;
@@ -18,7 +22,7 @@
     }
 
     body.light {
-      background: linear-gradient(-45deg, #ffe4e1, #bae8da, #d2f8ff, #ffd1ff);
+      background: linear-gradient(-45deg, #ffe4e1, #f9f871, #d2f8ff, #ffd1ff);
       background-size: 400% 400%;
       color: var(--text-light);
       animation: gradient 15s ease infinite;
@@ -113,7 +117,7 @@
       border-bottom: 1px solid rgba(255,255,255,0.1);
     }
 
-    .menu a:hover { background: rgba(255,255,255,0.2); }
+    .menu a:hover { background: rgba(255,255,255,0.05); }
 
     .cart-box {
       display: none;
@@ -140,7 +144,7 @@
 
     footer { text-align: center; padding: 1rem; font-size: 0.9rem; }
 
-    /* --- Chat Box --- */
+    /* --- Chat Box (همان کادر داخلی با انیمیشن از چپ به راست) --- */
     .chat-box {
       position: fixed;
       bottom: 20px;
@@ -149,10 +153,11 @@
       align-items: center;
       padding: 10px 15px;
       border-radius: 40px;
-      background: linear-gradient(270deg, #007bff, #00e0ff, #007bff);
-      background-size: 300% 300%;
+      background: linear-gradient(90deg, rgba(0,123,255,0.95), rgba(0,224,255,0.95));
+      background-size: 200% 100%;
       animation: moveBg 5s linear infinite;
       z-index: 3000;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.18);
     }
 
     @keyframes moveBg {
@@ -181,10 +186,59 @@
       border-radius: 50%;
       width: 35px;
       height: 35px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
 
     body.dark .chat-box input { background: #222; color: #fff; }
     body.dark .chat-box button { background: #fff; color: #111; }
+
+    /* ============================
+       Custom Scrollbar (WebKit)
+       ============================ */
+    /* اندازهٔ اسکرول‌بار */
+    ::-webkit-scrollbar {
+      width: 12px;
+      height: 12px;
+    }
+
+    /* پس‌زمینهٔ ریل/تراک */
+    ::-webkit-scrollbar-track {
+      background: var(--scroll-track);
+    }
+
+    /* تکۀ قابل درگ (thumb) */
+    ::-webkit-scrollbar-thumb {
+      border-radius: 999px;
+      background: var(--scroll-thumb-light);
+      border: 3px solid rgba(255,255,255,0.06);
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+      transition: transform 120ms ease, box-shadow 120ms ease;
+    }
+
+    /* هاور روی thumb */
+    ::-webkit-scrollbar-thumb:hover {
+      transform: scaleY(1.06);
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.28);
+    }
+
+    /* رنگ برای حالت تاریک */
+    body.dark ::-webkit-scrollbar-thumb {
+      background: var(--scroll-thumb-dark);
+      border: 3px solid rgba(0,0,0,0.25);
+      box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+    }
+
+    /* ============================
+       Firefox basic support
+       ============================ */
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: rgba(0,150,255,0.9) var(--scroll-track);
+    }
+
+    /* اگر خواستی، می‌تونی ظاهر اسکرول‌بار را در موبایل با CSS/JS بیشتر کنترل کنی */
   </style>
 </head>
 <body class="light">
@@ -215,7 +269,14 @@
   </div>
 
   <main>
-    <div class="content-box" id="content"></div>
+    <div class="content-box" id="content">
+      <!-- محتوای نمونه طولانی برای تست اسکرول -->
+      <h2>به صفحه پارسیان خوش آمدید</h2>
+      <p>این یک متن نمونه است تا اسکرول‌بار را تست کنید. برای دیدن عملکرد اسکرول، کمی متن بیشتر اضافه کردم.</p>
+      <p>لورم ایپسوم ...</p>
+      <p>(می‌توانی این بخش را با محتوای واقعی‌ات پر کنی)</p>
+      <p style="height:1200px;"></p>
+    </div>
   </main>
 
   <footer>Created by PJA Group | 2025</footer>
