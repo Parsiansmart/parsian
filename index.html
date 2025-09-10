@@ -13,7 +13,6 @@
       --scroll-track: transparent;
     }
 
-    /* پایه صفحه */
     body {
       margin: 0;
       font-family: "Tahoma", sans-serif;
@@ -57,9 +56,7 @@
       font-family: 'tabriz';
       src: url('./tabriz.ttf') format('truetype');
     }
-    body {
-      font-family: 'tabriz', Tahoma, sans-serif;
-    }
+    body { font-family: 'tabriz', Tahoma, sans-serif; }
 
     .theme-toggle, .auth-toggle, .language-select {
       position: absolute;
@@ -116,7 +113,6 @@
       font-weight: bold;
       border-bottom: 1px solid rgba(255,255,255,0.1);
     }
-
     .menu a:hover { background: rgba(255,255,255,0.05); }
 
     .cart-box {
@@ -133,7 +129,6 @@
     }
 
     main { padding: 2rem; max-width: 800px; margin: auto; min-height: 60vh; }
-
     .content-box {
       background: rgba(255, 255, 255, 0.2);
       border-radius: 10px;
@@ -144,7 +139,6 @@
 
     footer { text-align: center; padding: 1rem; font-size: 0.9rem; }
 
-    /* --- Chat Box (همان کادر داخلی با انیمیشن از چپ به راست) --- */
     .chat-box {
       position: fixed;
       bottom: 20px;
@@ -194,21 +188,8 @@
     body.dark .chat-box input { background: #222; color: #fff; }
     body.dark .chat-box button { background: #111; color: #fff; }
 
-      /* ============================
-       Custom Scrollbar (WebKit)
-       ============================ */
-    /* اندازهٔ اسکرول‌بار */
-    ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px;
-    }
-
-    /* پس‌زمینهٔ ریل/تراک */
-    ::-webkit-scrollbar-track {
-      background: var(--scroll-track);
-    }
-
-    /* تکۀ قابل درگ (thumb) */
+    ::-webkit-scrollbar { width: 8px; height: 8px; }
+    ::-webkit-scrollbar-track { background: var(--scroll-track); }
     ::-webkit-scrollbar-thumb {
       border-radius: 999px;
       background: var(--scroll-thumb-light);
@@ -216,21 +197,15 @@
       box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
       transition: transform 120ms ease, box-shadow 120ms ease;
     }
-
-    /* هاور روی thumb */
     ::-webkit-scrollbar-thumb:hover {
       transform: scaleY(1.06);
       box-shadow: inset 0 0 10px rgba(0,0,0,0.28);
     }
-
-    /* رنگ برای حالت تاریک */
     body.dark ::-webkit-scrollbar-thumb {
       background: var(--scroll-thumb-dark);
       border: 3px solid rgba(0,0,0,0.25);
       box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-   
-
-    /* اگر خواستی، می‌تونی ظاهر اسکرول‌بار را در موبایل با CSS/JS بیشتر کنترل کنی */
+    }
   </style>
 </head>
 <body class="light">
@@ -248,38 +223,36 @@
     <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
   </header>
 
+  <!-- ✅ فقط یک منو -->
   <div class="menu" id="menu">
-    <a href="javascript:void(0)" onclick="openCart()">سبد خرید</a>
-    <a href="http://192.168.4.1" target="_blank">کنترل پنل</a>
-    <a href="javascript:void(0)" onclick="loadContent('about')">اطلاعات پروژه</a>
-</div>
-
-
-  <div class="cart-box" id="cart">
-    برای خرید به <b>ticketsuupporting@gmail.com</b> پیام دهید.
-  </div>
-
-<main>
-    <div class="menu" id="menu">
     <a href="javascript:void(0)" onclick="openCart()">🛒 سبد خرید</a>
     <a href="http://192.168.4.1" target="_blank">کنترل پنل</a>
     <a href="javascript:void(0)" onclick="loadContent('about')">اطلاعات پروژه</a>
     <a href="javascript:void(0)" onclick="loadContent('contact')">ارتباط با ما</a>
     <a href="javascript:void(0)" id="log-list" style="display:none" onclick="showUsers()">مشاهده کاربران</a>
-</div>
+  </div>
 
+  <div class="cart-box" id="cart">
+    برای خرید به <b>ticketsuupporting@gmail.com</b> پیام دهید.
+  </div>
+
+  <main>
+    <!-- ✅ جایی که محتوای منو لود میشه -->
+    <div id="content" class="content-box">
+      <h2>خوش آمدید</h2>
+      <p>لطفاً از منوی بالا گزینه‌ای را انتخاب کنید.</p>
+    </div>
   </main>
-
 
   <footer>Created by PJA Group | 2025</footer>
 
-  <!-- Chat Box -->
   <div class="chat-box">
     <input type="text" placeholder="هر چیزی بپرس..." />
     <button onclick="sendMail()">➤</button>
   </div>
 
   <audio id="welcome" src="welcome.mp3" preload="auto"></audio>
+
   <script>
     const body = document.body;
     const themeBtn = document.getElementById("themeBtn");
@@ -318,7 +291,7 @@
 
     function openCart() {
       if (!userLogged) { alert("ابتدا وارد یا ثبت‌نام کنید"); return; }
-      cart.classList.toggle("show");
+      cart.style.display = (cart.style.display === "block") ? "none" : "block";
     }
 
     function showLogin() {
@@ -355,7 +328,13 @@
       html += '</ul>';
       content.innerHTML = html;
     }
-
+  function openCart() {
+    if (!userLogged) { 
+      alert("ابتدا وارد یا ثبت‌نام کنید"); 
+      return; 
+    }
+    alert("❌ فعلاً سرویس در دسترس نمی‌باشد");
+  }
     window.onload = () => {
       const saved = localStorage.getItem("user");
       if (saved) {
