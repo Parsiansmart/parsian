@@ -189,22 +189,46 @@
     body.dark .chat-box input { background: #222; color: #fff; }
     body.dark .chat-box button { background: #111; color: #fff; }
 
-   /* اسکرول‌بار */
+  /* اسکرول‌بار */
 ::-webkit-scrollbar { width: 8px; height: 8px; }
 ::-webkit-scrollbar-track { 
-  background: transparent; /* شفاف می‌مونه */
+  background: transparent; 
 }
+
 ::-webkit-scrollbar-thumb {
   border-radius: 999px;
-  background: linear-gradient(180deg, rgba(0,150,255,0.95), rgba(0,200,255,0.95)); /* گرادیان */
-  border: 3px solid rgba(0,0,0,0.2); /* مرز برای جلوه بهتر */
-  box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+  border: 3px solid rgba(255,255,255,0.06);
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
+  background: linear-gradient(180deg, rgba(0,123,255,0.95), rgba(0,224,255,0.95));
+  background-size: 200% 200%;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
   transition: transform 120ms ease, box-shadow 120ms ease;
+  animation: scrollGradient 5s linear infinite;
 }
+
+body.dark ::-webkit-scrollbar-thumb {
+  border: 3px solid rgba(0,0,0,0.25);
+  box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
+  background: linear-gradient(180deg, rgba(0,150,255,0.95), rgba(0,200,255,0.95));
+  background-size: 200% 200%;
+  -webkit-background-clip: padding-box;
+  background-clip: padding-box;
+  animation: scrollGradient 5s linear infinite;
+}
+
 ::-webkit-scrollbar-thumb:hover {
   transform: scaleY(1.06);
-  box-shadow: inset 0 0 10px rgba(0,0,0,0.6);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.28);
 }
+
+/* انیمیشن گرادیان اسکرول‌بار */
+@keyframes scrollGradient {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
     body.dark ::-webkit-scrollbar-thumb {
       background: var(--scroll-thumb-dark);
       border: 3px solid rgba(0,0,0,0.25);
