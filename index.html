@@ -223,7 +223,7 @@
     <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
   </header>
 
-  <!-- ✅ فقط یک منو -->
+  <!-- ✅ منو اصلی -->
   <div class="menu" id="menu">
     <a href="javascript:void(0)" onclick="openCart()">🛒 سبد خرید</a>
     <a href="http://192.168.4.1" target="_blank">کنترل پنل</a>
@@ -233,15 +233,11 @@
   </div>
 
   <div class="cart-box" id="cart">
-    برای خرید به <b>ticketsuupporting@gmail.com</b> پیام دهید.
+    ❌ فعلاً سرویس در دسترس نمی‌باشد
   </div>
 
   <main>
-    <!-- ✅ جایی که محتوای منو لود میشه -->
-    <div id="content" class="content-box">
-      <h2>خوش آمدید</h2>
-      <p>لطفاً از منوی بالا گزینه‌ای را انتخاب کنید.</p>
-    </div>
+    <div id="content" class="content-box"></div>
   </main>
 
   <footer>Created by PJA Group | 2025</footer>
@@ -272,8 +268,17 @@
     };
 
     function toggleMenu() {
-      if (!userLogged) { alert("ابتدا وارد یا ثبت‌نام کنید"); return; }
+      if (!userLogged) { 
+        alert("ابتدا وارد یا ثبت‌نام کنید"); 
+        return; 
+      }
+
       menu.classList.toggle("open");
+
+      // وقتی منو بسته می‌شود، محتوا پاک شود
+      if (!menu.classList.contains("open")) {
+        content.innerHTML = "";
+      }
     }
 
     function loadContent(type) {
@@ -290,8 +295,11 @@
     }
 
     function openCart() {
-      if (!userLogged) { alert("ابتدا وارد یا ثبت‌نام کنید"); return; }
-      cart.style.display = (cart.style.display === "block") ? "none" : "block";
+      if (!userLogged) { 
+        alert("ابتدا وارد یا ثبت‌نام کنید"); 
+        return; 
+      }
+      alert("❌ فعلاً سرویس در دسترس نمی‌باشد");
     }
 
     function showLogin() {
@@ -306,7 +314,6 @@
         localStorage.setItem("user", JSON.stringify(newUser));
         userLogged = true;
         currentUser = newUser;
-        alert("خوش آمدی " + name);
 
         document.getElementById("welcome").play().catch(()=>{});
 
@@ -328,13 +335,7 @@
       html += '</ul>';
       content.innerHTML = html;
     }
-  function openCart() {
-    if (!userLogged) { 
-      alert("ابتدا وارد یا ثبت‌نام کنید"); 
-      return; 
-    }
-    alert("❌ فعلاً سرویس در دسترس نمی‌باشد");
-  }
+
     window.onload = () => {
       const saved = localStorage.getItem("user");
       if (saved) {
