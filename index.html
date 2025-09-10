@@ -134,6 +134,7 @@
       border-radius: 10px;
       padding: 1rem;
       backdrop-filter: blur(6px);
+      display: none;
     }
     body.dark .content-box { background: rgba(0, 0, 0, 0.3); }
 
@@ -210,149 +211,148 @@
 </head>
 <body class="light">
 
-  <header>
-    <img id="logo" src="logo.png" alt="لوگو پروژه" />
-    <h1>کیت هوشمند سازی پارسیان</h1>
-    <p>مدیریت هوشمند وسایل خانه</p>
-    <button class="theme-toggle" id="themeBtn">🌙</button>
-    <button class="auth-toggle" onclick="showLogin()">🔐</button>
-    <select class="language-select">
-      <option value="fa">فارسی</option>
-      <option value="en">English</option>
-    </select>
-    <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
-  </header>
+<header>
+  <img id="logo" src="logo.png" alt="لوگو پروژه" />
+  <h1>کیت هوشمند سازی پارسیان</h1>
+  <p>مدیریت هوشمند وسایل خانه</p>
+  <button class="theme-toggle" id="themeBtn">🌙</button>
+  <button class="auth-toggle" onclick="showLogin()">🔐</button>
+  <select class="language-select">
+    <option value="fa">فارسی</option>
+    <option value="en">English</option>
+  </select>
+  <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
+</header>
 
-  <!-- ✅ منو اصلی -->
-  <div class="menu" id="menu">
-    <a href="javascript:void(0)" onclick="openCart()">🛒 سبد خرید</a>
-    <a href="http://192.168.4.1" target="_blank">کنترل پنل</a>
-    <a href="javascript:void(0)" onclick="loadContent('about')">اطلاعات پروژه</a>
-    <a href="javascript:void(0)" onclick="loadContent('contact')">ارتباط با ما</a>
-    <a href="javascript:void(0)" id="log-list" style="display:none" onclick="showUsers()">مشاهده کاربران</a>
-  </div>
+<div class="menu" id="menu">
+  <a href="javascript:void(0)" onclick="openCart()">🛒 سبد خرید</a>
+  <a href="http://192.168.4.1" target="_blank">کنترل پنل</a>
+  <a href="javascript:void(0)" onclick="loadContent('about')">اطلاعات پروژه</a>
+  <a href="javascript:void(0)" id="log-list" style="display:none" onclick="showUsers()">مشاهده کاربران</a>
+</div>
 
-  <div class="cart-box" id="cart">
-    ❌ فعلاً سرویس در دسترس نمی‌باشد
-  </div>
+<div class="cart-box" id="cart">
+  ❌ فعلاً سرویس در دسترس نمی‌باشد
+</div>
 
-  <main>
-    <div id="content" class="content-box"></div>
-  </main>
+<main>
+  <div id="content" class="content-box"></div>
+</main>
 
-  <footer>Created by PJA Group | 2025</footer>
+<footer>Created by PJA Group | 2025</footer>
 
-  <div class="chat-box">
-    <input type="text" placeholder="هر چیزی بپرس..." />
-    <button onclick="sendMail()">➤</button>
-  </div>
+<div class="chat-box">
+  <input type="text" placeholder="هر چیزی بپرس..." />
+  <button onclick="sendMail()">➤</button>
+</div>
 
-  <audio id="welcome" src="welcome.mp3" preload="auto"></audio>
+<audio id="welcome" src="welcome.mp3" preload="auto"></audio>
 
-  <script>
-    const body = document.body;
-    const themeBtn = document.getElementById("themeBtn");
-    const menu = document.getElementById("menu");
-    const content = document.getElementById("content");
-    const cart = document.getElementById("cart");
-    const logList = document.getElementById("log-list");
-    const menuToggle = document.getElementById("menuToggle");
+<script>
+  const body = document.body;
+  const themeBtn = document.getElementById("themeBtn");
+  const menu = document.getElementById("menu");
+  const content = document.getElementById("content");
+  const cart = document.getElementById("cart");
+  const logList = document.getElementById("log-list");
+  const menuToggle = document.getElementById("menuToggle");
 
-    let userLogged = false;
-    let currentUser = null;
+  let userLogged = false;
+  let currentUser = null;
 
-    themeBtn.onclick = () => {
-      body.classList.toggle("dark");
-      body.classList.toggle("light");
-      themeBtn.textContent = body.classList.contains("dark") ? "☀️" : "🌙";
-    };
+  themeBtn.onclick = () => {
+    body.classList.toggle("dark");
+    body.classList.toggle("light");
+    themeBtn.textContent = body.classList.contains("dark") ? "☀️" : "🌙";
+  };
 
-    function toggleMenu() {
-      if (!userLogged) { 
-        alert("ابتدا وارد یا ثبت‌نام کنید"); 
-        return; 
-      }
-
-      menu.classList.toggle("open");
-
-      // وقتی منو بسته می‌شود، محتوا پاک شود
-      if (!menu.classList.contains("open")) {
-        content.innerHTML = "";
-      }
+  function toggleMenu() {
+    if (!userLogged) { 
+      alert("ابتدا وارد یا ثبت‌نام کنید"); 
+      return; 
     }
-
-    function loadContent(type) {
-      menu.classList.remove("open");
-      if (type === 'about') {
-        content.innerHTML = `
-          <h2>درباره پروژه</h2>
-          <p>پروژه خانه هوشمند پارسیان شامل کنترل وسایل برقی، مشاهده دما، مصرف برق و تنظیمات از طریق موبایل می‌باشد.</p>`;
-      } else if (type === 'contact') {
-        content.innerHTML = `
-          <h2>ارتباط با ما</h2>
-          <p>📧 <a href="mailto:parsasoorme138700@gmail.com">parsasoorme138700@gmail.com</a></p>`;
-      }
+    menu.classList.toggle("open");
+    if (!menu.classList.contains("open")) {
+      content.innerHTML = "";
+      content.style.display = "none";
     }
+  }
 
-    function openCart() {
-      if (!userLogged) { 
-        alert("ابتدا وارد یا ثبت‌نام کنید"); 
-        return; 
-      }
-      alert("❌ فعلاً سرویس در دسترس نمی‌باشد");
+  function loadContent(type) {
+    menu.classList.remove("open");
+    if (type === 'about') {
+      content.innerHTML = `
+        <h2>درباره پروژه</h2>
+        <p>پروژه خانه هوشمند پارسیان شامل کنترل وسایل برقی، مشاهده دما، مصرف برق و تنظیمات از طریق موبایل می‌باشد.</p>`;
     }
+    content.style.display = "block";
+  }
 
-    function showLogin() {
-      const name = prompt("نام خود را وارد کنید:");
-      const email = prompt("ایمیل خود را وارد کنید:");
-      if (name && email) {
-        const time = new Date().toLocaleString("fa-IR");
-        const newUser = { name, email, time };
-        let users = JSON.parse(localStorage.getItem("users") || "[]");
-        users.push(newUser);
-        localStorage.setItem("users", JSON.stringify(users));
-        localStorage.setItem("user", JSON.stringify(newUser));
-        userLogged = true;
-        currentUser = newUser;
+  function openCart() {
+    if (!userLogged) { 
+      alert("ابتدا وارد یا ثبت‌نام کنید"); 
+      return; 
+    }
+    alert("❌ فعلاً سرویس در دسترس نمی‌باشد");
+  }
 
-        document.getElementById("welcome").play().catch(()=>{});
+  function showLogin() {
+    const name = prompt("نام خود را وارد کنید:");
+    const email = prompt("ایمیل خود را وارد کنید:");
+    if (name && email) {
+      const time = new Date().toLocaleString("fa-IR");
+      const newUser = { name, email, time };
+      let users = JSON.parse(localStorage.getItem("users") || "[]");
+      users.push(newUser);
+      localStorage.setItem("users", JSON.stringify(users));
+      localStorage.setItem("user", JSON.stringify(newUser));
+      userLogged = true;
+      currentUser = newUser;
 
-        menu.style.display = "block";
-        menuToggle.style.display = "inline-block";
+      document.getElementById("welcome").play().catch(()=>{});
 
-        if (name.toLowerCase() === "parsa" && email.toLowerCase() === "parsasoorme138700@gmail.com") {
-          logList.style.display = "block";
-        }
+      menu.style.display = "block";
+      menuToggle.style.display = "inline-block";
+
+      if (name.toLowerCase() === "parsa" && email.toLowerCase() === "parsasoorme138700@gmail.com") {
+        logList.style.display = "block";
       }
     }
+  }
 
-    function showUsers() {
-      if (!(currentUser && currentUser.name.toLowerCase() === "parsa" && currentUser.email.toLowerCase() === "parsasoorme138700@gmail.com")) return;
-      const users = JSON.parse(localStorage.getItem("users") || "[]");
-      if (users.length === 0) { content.innerHTML = "<p>هیچ کاربری هنوز ثبت‌نام نکرده است.</p>"; return; }
-      let html = '<h2>لیست کاربران وارد شده:</h2><ul>';
-      users.forEach(u => { html += `<li>${u.name} - ${u.email} - ${u.time}</li>`; });
-      html += '</ul>';
-      content.innerHTML = html;
+  function showUsers() {
+    if (!(currentUser && currentUser.name.toLowerCase() === "parsa" && currentUser.email.toLowerCase() === "parsasoorme138700@gmail.com")) return;
+    const users = JSON.parse(localStorage.getItem("users") || "[]");
+    if (users.length === 0) { 
+      content.innerHTML = "<p>هیچ کاربری هنوز ثبت‌نام نکرده است.</p>"; 
+      content.style.display = "block";
+      return; 
     }
+    let html = '<h2>لیست کاربران وارد شده:</h2><ul>';
+    users.forEach(u => { html += `<li>${u.name} - ${u.email} - ${u.time}</li>`; });
+    html += '</ul>';
+    content.innerHTML = html;
+    content.style.display = "block";
+  }
 
-    window.onload = () => {
-      const saved = localStorage.getItem("user");
-      if (saved) {
-        const user = JSON.parse(saved);
-        userLogged = true;
-        currentUser = user;
-        menu.style.display = "block";
-        menuToggle.style.display = "inline-block";
-        if (user.name.toLowerCase() === "parsa" && user.email.toLowerCase() === "parsasoorme138700@gmail.com") {
-          logList.style.display = "block";
-        }
+  window.onload = () => {
+    const saved = localStorage.getItem("user");
+    if (saved) {
+      const user = JSON.parse(saved);
+      userLogged = true;
+      currentUser = user;
+      menu.style.display = "block";
+      menuToggle.style.display = "inline-block";
+      if (user.name.toLowerCase() === "parsa" && user.email.toLowerCase() === "parsasoorme138700@gmail.com") {
+        logList.style.display = "block";
       }
-    };
-
-    function sendMail() {
-      window.open("mailto:ticketsuupporting@gmail.com", "_blank");
     }
-  </script>
+  };
+
+  function sendMail() {
+    window.open("mailto:ticketsuupporting@gmail.com", "_blank");
+  }
+</script>
+
 </body>
 </html>
