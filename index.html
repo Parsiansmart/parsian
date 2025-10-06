@@ -139,7 +139,7 @@
       opacity: 0.8;
     }
 
-    .theme-toggle, .auth-toggle, .menu-toggle {
+    .theme-toggle, .menu-toggle {
       position: absolute;
       top: 20px;
       background: rgba(255, 255, 255, 0.8);
@@ -152,21 +152,17 @@
     }
 
     body.dark .theme-toggle,
-    body.dark .auth-toggle,
     body.dark .menu-toggle {
       background: rgba(0, 0, 0, 0.5);
       color: white;
     }
 
     .theme-toggle { left: 20px; }
-    .auth-toggle { left: 75px; }
     .menu-toggle { 
       right: 20px;
-      display: none;
     }
 
     .theme-toggle:hover, 
-    .auth-toggle:hover,
     .menu-toggle:hover {
       transform: scale(1.05);
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
@@ -184,7 +180,6 @@
       transition: right 0.3s ease;
       padding-top: 5rem;
       z-index: 1000;
-      display: none;
     }
 
     body.dark .menu { 
@@ -449,84 +444,6 @@
       background: rgba(0, 0, 0, 0.2);
     }
 
-    .modal {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(5px);
-      z-index: 2000;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .modal.active {
-      display: flex;
-    }
-
-    .modal-content {
-      background: white;
-      padding: 2.5rem;
-      border-radius: 15px;
-      max-width: 400px;
-      width: 90%;
-      box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
-    }
-
-    body.dark .modal-content {
-      background: #1a1a1a;
-      color: white;
-    }
-
-    .modal-content h2 {
-      margin-bottom: 0.5rem;
-      font-size: 1.8rem;
-    }
-
-    .modal-content p {
-      opacity: 0.7;
-      margin-bottom: 1.5rem;
-    }
-
-    .modal-content input {
-      width: 100%;
-      padding: 12px;
-      margin-bottom: 1rem;
-      border: 1px solid rgba(0, 0, 0, 0.1);
-      border-radius: 8px;
-      font-size: 1rem;
-      font-family: inherit;
-    }
-
-    body.dark .modal-content input {
-      background: #2a2a2a;
-      border-color: rgba(255, 255, 255, 0.1);
-      color: white;
-    }
-
-    .modal-content button {
-      width: 100%;
-      padding: 12px;
-      background: linear-gradient(135deg, #00bcd4, #0066cc);
-      color: white;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 500;
-      cursor: pointer;
-      transition: transform 0.2s;
-    }
-
-    .modal-content button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(0, 188, 212, 0.4);
-    }
-
-    .hidden { display: none; }
-
     @media (max-width: 768px) {
       .header-content {
         flex-direction: column;
@@ -537,7 +454,6 @@
         text-align: center;
       }
       
-      .menu-toggle { display: inline-block; }
       .cards-grid { grid-template-columns: 1fr; }
       .chat-box input { min-width: 150px; }
       .protocols-grid { grid-template-columns: 1fr; }
@@ -558,7 +474,6 @@
   </div>
   
   <button class="theme-toggle" id="themeBtn">🌙</button>
-  <button class="auth-toggle" onclick="showLogin()">🔐</button>
   <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
 </header>
 
@@ -573,9 +488,6 @@
   <a href="https://i.diawi.com/jYurYF" target="_blank">
     ⬇ دانلود نرم‌افزار
   </a>
-  <a href="javascript:void(0)" id="log-list" class="hidden" onclick="showUsers()">
-    👥 مشاهده کاربران
-  </a>
 </div>
 
 <main>
@@ -589,35 +501,13 @@
   <button onclick="sendMail()">➤</button>
 </div>
 
-<!-- Login Modal -->
-<div class="modal" id="loginModal">
-  <div class="modal-content">
-    <h2>ورود به پارسیان</h2>
-    <p>اطلاعات خود را وارد کنید</p>
-    <form id="loginForm">
-      <input type="text" id="userName" placeholder="نام خود را وارد کنید" required />
-      <input type="email" id="userEmail" placeholder="ایمیل خود را وارد کنید" required />
-      <button type="submit">ورود / ثبت‌نام</button>
-    </form>
-  </div>
-</div>
-
-<audio id="welcome" src="welcome.mp3" preload="auto"></audio>
-
 <script>
   const body = document.body;
   const themeBtn = document.getElementById("themeBtn");
   const menu = document.getElementById("menu");
   const content = document.getElementById("content");
-  const logList = document.getElementById("log-list");
   const menuToggle = document.getElementById("menuToggle");
-  const loginModal = document.getElementById("loginModal");
-  const loginForm = document.getElementById("loginForm");
   const chatInput = document.getElementById("chatInput");
-  const welcomeSound = document.getElementById("welcome");
-
-  let userLogged = false;
-  let currentUser = null;
 
   // Theme Toggle
   themeBtn.onclick = () => {
@@ -637,10 +527,6 @@
 
   // Toggle Menu
   function toggleMenu() {
-    if (!userLogged) { 
-      alert("ابتدا وارد یا ثبت‌نام کنید"); 
-      return; 
-    }
     menu.classList.toggle("open");
   }
 
@@ -649,63 +535,11 @@
     menu.classList.remove("open");
   }
 
-  // Show Login
-  function showLogin() {
-    loginModal.classList.add("active");
-  }
-
-  // Close modal on outside click
-  loginModal.onclick = (e) => {
-    if (e.target === loginModal) {
-      loginModal.classList.remove("active");
-    }
-  };
-
-  // Handle Login
-  loginForm.onsubmit = (e) => {
-    e.preventDefault();
-    const name = document.getElementById("userName").value;
-    const email = document.getElementById("userEmail").value;
-
-    if (name && email) {
-      const time = new Date().toLocaleString("fa-IR");
-      const newUser = { name, email, time };
-      
-      let users = JSON.parse(localStorage.getItem("users") || "[]");
-      users.push(newUser);
-      localStorage.setItem("users", JSON.stringify(users));
-      localStorage.setItem("user", JSON.stringify(newUser));
-      
-      userLogged = true;
-      currentUser = newUser;
-      loginModal.classList.remove("active");
-
-      // پخش صدا هنگام ورود
-      welcomeSound.play().catch(() => {
-        console.log("صدا پخش نشد");
-      });
-
-      menu.style.display = "block";
-      menuToggle.style.display = "inline-block";
-
-      if (name.toLowerCase() === "parsa" && email.toLowerCase() === "parsasoorme138700@gmail.com") {
-        logList.classList.remove("hidden");
-      }
-
-      showDashboard();
-      
-      // باز کردن خودکار منو بعد از لاگین
-      setTimeout(() => {
-        menu.classList.add("open");
-      }, 300);
-    }
-  };
-
   // Show Dashboard
   function showDashboard() {
     content.innerHTML = `
       <div class="welcome-section">
-        <h2>سلام ${currentUser.name} عزیز!</h2>
+        <h2>به پارسیان خوش آمدید!</h2>
         <p>به پنل مدیریت هوشمند پارسیان خوش آمدید</p>
         
         <div class="cards-grid">
@@ -716,7 +550,7 @@
               </svg>
             </div>
             <h3>کنترل پنل</h3>
-            <p> دسترسی به کنترل پنل</p>
+            <p>دسترسی به پنل ESP32</p>
           </div>
 
           <div class="card" onclick="window.open('https://i.diawi.com/jYurYF', '_blank')">
@@ -790,33 +624,6 @@
     }
   }
 
-  // Show Users (Admin only)
-  function showUsers() {
-    if (!(currentUser && currentUser.name.toLowerCase() === "parsa" && currentUser.email.toLowerCase() === "parsasoorme138700@gmail.com")) return;
-    
-    const users = JSON.parse(localStorage.getItem("users") || "[]");
-    
-    let html = '<div class="welcome-section"><h2>لیست کاربران</h2>';
-    html += `<p>تعداد کل کاربران: ${users.length}</p><div style="margin-top: 2rem;">`;
-    
-    if (users.length === 0) {
-      html += '<p>هیچ کاربری هنوز ثبت‌نام نکرده است.</p>';
-    } else {
-      users.forEach(u => {
-        html += `
-          <div style="background: rgba(255,255,255,0.2); backdrop-filter: blur(10px); padding: 1rem; border-radius: 10px; margin-bottom: 1rem; text-align: right;">
-            <strong>${u.name}</strong> - ${u.email}<br>
-            <small style="opacity: 0.7">${u.time}</small>
-          </div>
-        `;
-      });
-    }
-    
-    html += '</div></div>';
-    content.innerHTML = html;
-    menu.classList.remove("open");
-  }
-
   // Send Mail
   function sendMail() {
     const message = chatInput.value.trim();
@@ -833,29 +640,9 @@
     }
   });
 
-  // Load saved user
+  // Load content on page load
   window.onload = () => {
-    const saved = localStorage.getItem("user");
-    if (saved) {
-      const user = JSON.parse(saved);
-      userLogged = true;
-      currentUser = user;
-      menu.style.display = "block";
-      menuToggle.style.display = "inline-block";
-      
-      if (user.name.toLowerCase() === "parsa" && user.email.toLowerCase() === "parsasoorme138700@gmail.com") {
-        logList.classList.remove("hidden");
-      }
-      
-      showDashboard();
-    } else {
-      content.innerHTML = `
-        <div class="welcome-section">
-          <h2>به پارسیان خوش آمدید</h2>
-          <p>خانه هوشمند خود را با جدیدترین تکنولوژی مدیریت کنید</p>
-        </div>
-      `;
-    }
+    showDashboard();
   };
 </script>
 
