@@ -1,650 +1,349 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>| پارسیان |</title>
-  <style>
-    @font-face {
-      font-family: 'tabriz';
-      src: url('./tabriz.ttf') format('truetype');
-    }
-
-    :root {
-      --text-light: #222;
-      --text-dark: #fff;
-      --scroll-thumb-light: linear-gradient(180deg, rgba(0,123,255,0.95), rgba(0,224,255,0.95));
-      --scroll-thumb-dark: linear-gradient(180deg, rgba(0,150,255,0.95), rgba(0,200,255,0.95));
-      --scroll-track: transparent;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: 'tabriz', Tahoma, sans-serif;
-      overflow-x: hidden;
-      transition: background 0.6s, color 0.6s;
-    }
-
-    body.light {
-      background: linear-gradient(-45deg, #ffe4e1, #bae8da, #d2f8ff, #ffd1ff);
-      background-size: 400% 400%;
-      color: var(--text-light);
-      animation: gradient 15s ease infinite;
-    }
-
-    body.dark {
-      background: radial-gradient(circle, #0f2027, #203a43, #2c5364);
-      color: var(--text-dark);
-    }
-
-    @keyframes gradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    /* اسکرول‌بار */
-    ::-webkit-scrollbar { width: 8px; height: 8px; }
-
-    ::-webkit-scrollbar-track { 
-      background: transparent; 
-    }
-
-    ::-webkit-scrollbar-thumb {
-      border-radius: 999px;
-      border: 3px solid rgba(255,255,255,0.06);
-      box-shadow: inset 0 0 6px rgba(0,0,0,0.2);
-      background: linear-gradient(180deg, rgba(0,123,255,0.95), rgba(0,224,255,0.95));
-      background-size: 200% 200%;
-      transition: transform 120ms ease, box-shadow 120ms ease;
-      animation: scrollGradient 5s linear infinite;
-    }
-
-    body.dark ::-webkit-scrollbar-track {
-      background: rgba(20,20,30,0.6);
-    }
-
-    body.dark ::-webkit-scrollbar-thumb {
-      border: 3px solid rgba(0,0,0,0.25);
-      box-shadow: inset 0 0 6px rgba(0,0,0,0.5);
-      background: linear-gradient(180deg, rgba(0,150,255,0.95), rgba(0,200,255,0.95));
-      background-size: 200% 200%;
-      animation: scrollGradient 5s linear infinite;
-    }
-
-    ::-webkit-scrollbar-thumb:hover {
-      transform: scaleY(1.06);
-      box-shadow: inset 0 0 10px rgba(0,0,0,0.28);
-    }
-
-    @keyframes scrollGradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-
-    header {
-      text-align: center;
-      padding: 2rem 1rem;
-      position: relative;
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.1);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    body.dark header {
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    .header-content {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 1rem;
-    }
-
-    #logo {
-      width: 60px;
-      height: 60px;
-      border-radius: 15px;
-      background: linear-gradient(135deg, #00bcd4, #0066cc);
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 15px rgba(0, 188, 212, 0.3);
-    }
-
-    #logo img {
-      width: 35px;
-      height: 35px;
-      border-radius: 8px;
-    }
-
-    .header-text {
-      text-align: right;
-    }
-
-    h1 {
-      font-size: 1.8rem;
-      margin-bottom: 0.5rem;
-    }
-
-    .subtitle {
-      font-size: 0.9rem;
-      opacity: 0.8;
-    }
-
-    .theme-toggle, .menu-toggle {
-      position: absolute;
-      top: 20px;
-      background: rgba(255, 255, 255, 0.8);
-      border: none;
-      border-radius: 8px;
-      padding: 0.5rem 0.8rem;
-      font-size: 1.2rem;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    body.dark .theme-toggle,
-    body.dark .menu-toggle {
-      background: rgba(0, 0, 0, 0.5);
-      color: white;
-    }
-
-    .theme-toggle { left: 20px; }
-    .menu-toggle { 
-      right: 20px;
-    }
-
-    .theme-toggle:hover, 
-    .menu-toggle:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    }
-
-    .menu {
-      position: fixed;
-      top: 0;
-      right: -280px;
-      width: 260px;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.85);
-      backdrop-filter: blur(15px);
-      box-shadow: -4px 0 15px rgba(0,0,0,0.2);
-      transition: right 0.3s ease;
-      padding-top: 5rem;
-      z-index: 1000;
-    }
-
-    body.dark .menu { 
-      background: rgba(20, 20, 30, 0.85); 
-    }
-
-    .menu.open { right: 0; }
-
-    .menu-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 0 1.5rem 1rem;
-      border-bottom: 1px solid rgba(0,0,0,0.1);
-      margin-bottom: 1rem;
-    }
-
-    body.dark .menu-header {
-      border-bottom: 1px solid rgba(255,255,255,0.1);
-    }
-
-    .menu-close {
-      background: none;
-      border: none;
-      font-size: 1.5rem;
-      cursor: pointer;
-      color: inherit;
-    }
-
-    .menu a {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      padding: 1.2rem 1.5rem;
-      color: inherit;
-      text-decoration: none;
-      font-weight: 500;
-      border-bottom: 1px solid rgba(0,0,0,0.05);
-      transition: background 0.3s;
-    }
-
-    body.dark .menu a {
-      border-bottom: 1px solid rgba(255,255,255,0.05);
-    }
-
-    .menu a:hover { 
-      background: rgba(0, 188, 212, 0.1); 
-    }
-
-    main {
-      padding: 3rem 1.5rem;
-      max-width: 1200px;
-      margin: auto;
-      min-height: 60vh;
-    }
-
-    .welcome-section {
-      text-align: center;
-      padding: 2rem 0;
-    }
-
-    .welcome-section h2 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .welcome-section p {
-      font-size: 1.2rem;
-      opacity: 0.8;
-      margin-bottom: 2rem;
-    }
-
-    .cards-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 2rem;
-      margin-top: 3rem;
-    }
-
-    .card {
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      padding: 2rem;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    body.dark .card {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    }
-
-    .card-icon {
-      width: 70px;
-      height: 70px;
-      border-radius: 12px;
-      margin: 0 auto 1.5rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    }
-
-    .card-icon svg {
-      width: 35px;
-      height: 35px;
-      fill: white;
-    }
-
-    .card-icon.panel {
-      background: linear-gradient(135deg, #00bcd4, #0066cc);
-    }
-
-    .card-icon.download {
-      background: linear-gradient(135deg, #a855f7, #ec4899);
-    }
-
-    .card-icon.protocols {
-      background: linear-gradient(135deg, #10b981, #059669);
-    }
-
-    .card h3 {
-      font-size: 1.4rem;
-      margin-bottom: 0.8rem;
-    }
-
-    .card p {
-      opacity: 0.8;
-      font-size: 0.95rem;
-    }
-
-    .protocols-section {
-      margin-top: 3rem;
-      background: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(10px);
-      border-radius: 15px;
-      padding: 2rem;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-    }
-
-    body.dark .protocols-section {
-      background: rgba(0, 0, 0, 0.3);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .protocols-section h3 {
-      text-align: center;
-      margin-bottom: 1.5rem;
-      font-size: 1.6rem;
-    }
-
-    .protocols-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 1.5rem;
-    }
-
-    .protocol-item {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 1.5rem;
-      border-radius: 10px;
-      text-align: center;
-      transition: transform 0.3s;
-    }
-
-    .protocol-item:hover {
-      transform: translateY(-3px);
-    }
-
-    .protocol-item h4 {
-      margin-bottom: 0.5rem;
-      font-size: 1.2rem;
-    }
-
-    .protocol-item p {
-      font-size: 0.9rem;
-      opacity: 0.8;
-    }
-
-    .chat-box {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      display: flex;
-      align-items: center;
-      padding: 12px 18px;
-      border-radius: 50px;
-      background: linear-gradient(90deg, rgba(0,123,255,0.95), rgba(0,224,255,0.95));
-      background-size: 200% 100%;
-      animation: moveBg 5s linear infinite;
-      z-index: 3000;
-      box-shadow: 0 10px 30px rgba(0, 188, 212, 0.4);
-    }
-
-    @keyframes moveBg {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-
-    .chat-box input {
-      border: none;
-      outline: none;
-      background: #fff;
-      color: #111;
-      font-size: 1rem;
-      font-family: inherit;
-      border-radius: 25px;
-      padding: 8px 16px;
-      margin-left: 12px;
-      min-width: 220px;
-    }
-
-    body.dark .chat-box input { 
-      background: #1a1a1a; 
-      color: #fff; 
-    }
-
-    .chat-box button {
-      border: none;
-      background: #111;
-      font-size: 1.3rem;
-      cursor: pointer;
-      color: #fff;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.2s;
-    }
-
-    .chat-box button:hover {
-      transform: scale(1.1);
-    }
-
-    body.dark .chat-box button { 
-      background: #f0f0f0; 
-      color: #111; 
-    }
-
-    footer {
-      text-align: center;
-      padding: 1.5rem;
-      font-size: 0.9rem;
-      opacity: 0.8;
-      backdrop-filter: blur(10px);
-      background: rgba(255, 255, 255, 0.1);
-      border-top: 1px solid rgba(255, 255, 255, 0.2);
-      margin-top: 3rem;
-    }
-
-    body.dark footer {
-      background: rgba(0, 0, 0, 0.2);
-    }
-
-    @media (max-width: 768px) {
-      .header-content {
-        flex-direction: column;
-        gap: 0.5rem;
-      }
-      
-      .header-text {
-        text-align: center;
-      }
-      
-      .cards-grid { grid-template-columns: 1fr; }
-      .chat-box input { min-width: 150px; }
-      .protocols-grid { grid-template-columns: 1fr; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پارسیان - خانه هوشمند</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', 'Vazirmatn', 'Segoe UI', 'Tahoma', sans-serif;
+            font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+        }
+        
+        .gradient-bg {
+            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 25%, #ecfeff 50%, #f0f9ff 75%, #ffffff 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 30s ease infinite;
+        }
+        
+        .gradient-bg-dark {
+            background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 25s ease infinite;
+        }
+        
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        
+        .hover-lift {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .hover-lift:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.15);
+        }
+        
+        .mouse-follower {
+            position: fixed;
+            pointer-events: none;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            transition: background 0.3s ease-out;
+        }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, rgba(34, 197, 94, 0.8), rgba(59, 130, 246, 0.8));
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, rgba(34, 197, 94, 1), rgba(59, 130, 246, 1));
+        }
+    </style>
 </head>
-<body class="light">
-
-<header>
-  <div class="header-content">
-    <div id="logo">
-      <img src="https://raw.githubusercontent.com/parsasoorme1387/parsian/main/logo.png" alt="لوگوی پارسیان">
-    </div>
-    <div class="header-text">
-      <h1>کیت هوشمند سازی پارسیان</h1>
-      <p class="subtitle">مدیریت هوشمند وسایل خانه</p>
-    </div>
-  </div>
-  
-  <button class="theme-toggle" id="themeBtn">🌙</button>
-  <button class="menu-toggle" id="menuToggle" onclick="toggleMenu()">☰</button>
-</header>
-
-<div class="menu" id="menu">
-  <div class="menu-header">
-    <h3>منو</h3>
-    <button class="menu-close" onclick="closeMenu()">✕</button>
-  </div>
-  <a href="http://192.168.4.1" target="_blank">
-    🏠 کنترل پنل
-  </a>
-  <a href="https://i.diawi.com/jYurYF" target="_blank">
-    ⬇ دانلود نرم‌افزار
-  </a>
-</div>
-
-<main>
-  <div id="content"></div>
-</main>
-
-<footer>Created by PJA Group | 2025</footer>
-
-<div class="chat-box">
-  <input type="text" id="chatInput" placeholder="هر چیزی بپرس..." />
-  <button onclick="sendMail()">➤</button>
-</div>
-
-<script>
-  const body = document.body;
-  const themeBtn = document.getElementById("themeBtn");
-  const menu = document.getElementById("menu");
-  const content = document.getElementById("content");
-  const menuToggle = document.getElementById("menuToggle");
-  const chatInput = document.getElementById("chatInput");
-
-  // Theme Toggle
-  themeBtn.onclick = () => {
-    body.classList.toggle("dark");
-    body.classList.toggle("light");
-    themeBtn.textContent = body.classList.contains("dark") ? "☀️" : "🌙";
-    localStorage.setItem("theme", body.classList.contains("dark") ? "dark" : "light");
-  };
-
-  // Load saved theme
-  const savedTheme = localStorage.getItem("theme");
-  if (savedTheme === "dark") {
-    body.classList.remove("light");
-    body.classList.add("dark");
-    themeBtn.textContent = "☀️";
-  }
-
-  // Toggle Menu
-  function toggleMenu() {
-    menu.classList.toggle("open");
-  }
-
-  // Close Menu
-  function closeMenu() {
-    menu.classList.remove("open");
-  }
-
-  // Show Dashboard
-  function showDashboard() {
-    content.innerHTML = `
-      <div class="welcome-section">
-        <h2>به پارسیان خوش آمدید!</h2>
-        <p>به پنل مدیریت هوشمند پارسیان خوش آمدید</p>
-        
-        <div class="cards-grid">
-          <div class="card" onclick="window.open('http://192.168.4.1', '_blank')">
-            <div class="card-icon panel">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-              </svg>
-            </div>
-            <h3>کنترل پنل</h3>
-            <p>دسترسی به پنل ESP32</p>
-          </div>
-
-          <div class="card" onclick="window.open('https://i.diawi.com/jYurYF', '_blank')">
-            <div class="card-icon download">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M19 12v7H5v-7H3v7c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2v-7h-2zm-6 .67l2.59-2.58L17 11.5l-5 5-5-5 1.41-1.41L11 12.67V3h2z"/>
-              </svg>
-            </div>
-            <h3>دانلود اپلیکیشن</h3>
-            <p>نرم‌افزار موبایل</p>
-          </div>
-          
-          <div class="card" onclick="showProtocols()">
-            <div class="card-icon protocols">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
-              </svg>
-            </div>
-            <h3>پروتکل‌های پشتیبانی</h3>
-            <p>مشاهده پروتکل‌های هوشمندسازی</p>
-          </div>
-        </div>
-        
-        <div class="protocols-section" id="protocolsSection">
-          <h3>پروتکل‌های هوشمندسازی پشتیبانی شده</h3>
-          <div class="protocols-grid">
-            <div class="protocol-item">
-              <h4>MQTT</h4>
-              <p>پروتکل سبک برای ارتباط دستگاه‌های IoT</p>
-            </div>
-            <div class="protocol-item">
-              <h4>HTTP/HTTPS</h4>
-              <p>پروتکل استاندارد وب برای ارتباط با سرور</p>
-            </div>
-            <div class="protocol-item">
-              <h4>WebSocket</h4>
-              <p>ارتباط دوطرفه و زمان واقعی</p>
-            </div>
-            <div class="protocol-item">
-              <h4>Zigbee</h4>
-              <p>پروتکل کم‌مصرف برای شبکه‌های مش</p>
-            </div>
-            <div class="protocol-item">
-              <h4>Z-Wave</h4>
-              <p>پروتکل ارتباطی برای خانه هوشمند</p>
-            </div>
-            <div class="protocol-item">
-              <h4>Bluetooth LE</h4>
-              <p>ارتباط کم‌مصرف برای دستگاه‌های نزدیک</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    `;
+<body class="gradient-bg min-h-screen overflow-x-hidden">
+    <!-- Mouse Follower Effect -->
+    <div id="mouseFollower" class="mouse-follower"></div>
     
-    // مخفی کردن بخش پروتکل‌ها در ابتدا
-    document.getElementById('protocolsSection').style.display = 'none';
-  }
+    <div class="relative z-10">
+        <!-- Header -->
+        <header class="fixed top-0 w-full bg-white/80 backdrop-blur-sm border-b border-gray-200/50 z-50">
+            <nav class="container mx-auto px-4 py-4">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-cyan-600 rounded-lg flex items-center justify-center">
+                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                            </svg>
+                        </div>
+                        <span class="text-xl font-bold text-gray-900">پارسیان</span>
+                    </div>
+                    
+                    <div class="hidden md:flex items-center gap-8">
+                        <a href="#features" class="text-gray-700 hover:text-emerald-600 transition-colors">امکانات</a>
+                        <a href="#protocols" class="text-gray-700 hover:text-emerald-600 transition-colors">پروتکل‌ها</a>
+                        <a href="#contact" class="text-gray-700 hover:text-emerald-600 transition-colors">تماس</a>
+                    </div>
+                    
+                    <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors">
+                        <svg id="sunIcon" class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                        </svg>
+                        <svg id="moonIcon" class="w-5 h-5 text-gray-700 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+                        </svg>
+                    </button>
+                </div>
+            </nav>
+        </header>
 
-  // Show Protocols
-  function showProtocols() {
-    const protocolsSection = document.getElementById('protocolsSection');
-    if (protocolsSection.style.display === 'none') {
-      protocolsSection.style.display = 'block';
-      window.scrollTo({
-        top: protocolsSection.offsetTop - 100,
-        behavior: 'smooth'
-      });
-    } else {
-      protocolsSection.style.display = 'none';
-    }
-  }
+        <!-- Hero Section -->
+        <section class="pt-32 pb-20 px-4">
+            <div class="container mx-auto text-center">
+                <div class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-600 px-4 py-2 rounded-full mb-8">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    <span class="text-sm">نسل جدید خانه هوشمند</span>
+                </div>
+                
+                <h1 class="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
+                    خانه <span class="bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent">هوشمند</span> پارسیان
+                </h1>
+                
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-12">
+                    آینده را به خانه خود بیاورید. با پارسیان، کنترل کامل خانه در دستان شماست.
+                </p>
+                
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button class="bg-gradient-to-r from-emerald-600 to-cyan-600 text-white px-8 py-4 rounded-xl font-medium hover-lift">
+                        شروع کنید
+                    </button>
+                    <button class="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-xl font-medium hover:border-emerald-500 hover:text-emerald-600 transition-colors">
+                        مشاهده دمو
+                    </button>
+                </div>
+            </div>
+        </section>
 
-  // Send Mail
-  function sendMail() {
-    const message = chatInput.value.trim();
-    if (message) {
-      window.open(`mailto:ticketsuupporting@gmail.com?subject=پیام از سایت&body=${encodeURIComponent(message)}`, "_blank");
-      chatInput.value = "";
-    }
-  }
+        <!-- Features Section -->
+        <section id="features" class="py-20 bg-gray-50/50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">امکانات پیشرفته</h2>
+                    <p class="text-xl text-gray-600">تکنولوژی‌های مدرن برای زندگی راحت‌تر</p>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <!-- Feature 1 -->
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-8 hover-lift">
+                        <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">کنترل روشنایی</h3>
+                        <p class="text-gray-600">
+                            کنترل هوشمند روشنایی تمام فضاهای خانه با قابلیت تنظیم شدت نور و رنگ
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 2 -->
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-8 hover-lift">
+                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">کنترل دما</h3>
+                        <p class="text-gray-600">
+                            تنظیم خودکار دمای خانه با حسگرهای پیشرفته و الگوریتم‌های هوشمند
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 3 -->
+                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-8 hover-lift">
+                        <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">امنیت پیشرفته</h3>
+                        <p class="text-gray-600">
+                            سیستم امنیتی 24/7 با دوربین‌های هوشمند و هشدارهای فوری
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  // Enter key for chat
-  chatInput.addEventListener("keypress", (e) => {
-    if (e.key === "Enter") {
-      sendMail();
-    }
-  });
+        <!-- Contact Section -->
+        <section id="contact" class="py-20 bg-gray-50/50">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <h2 class="text-4xl font-bold text-gray-900 mb-4">سوال دارید؟ بپرسید!</h2>
+                    <p class="text-xl text-gray-600">تیم پشتیبانی پارسیان آماده پاسخگویی به شما</p>
+                </div>
+                
+                <div class="max-w-2xl mx-auto bg-white/70 backdrop-blur-sm rounded-2xl p-8">
+                    <form onsubmit="sendEmail(event)">
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">ایمیل (اختیاری)</label>
+                            <input type="email" id="email" placeholder="email@example.com" class="w-full p-3 border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
+                        </div>
+                        
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">پیام شما</label>
+                            <textarea id="message" rows="6" placeholder="سوال یا پیام خود را اینجا بنویسید..." class="w-full p-3 border border-gray-200 rounded-lg bg-white resize-none focus:outline-none focus:ring-2 focus:ring-emerald-500" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-cyan-600 text-white py-3 rounded-lg font-medium hover-lift">
+                            ارسال پیام
+                        </button>
+                    </form>
+                    
+                    <div class="mt-8 text-center">
+                        <p class="text-gray-600 mb-2">ایمیل پشتیبانی:</p>
+                        <a href="mailto:ticketsuupporting@gmail.com" class="text-emerald-600 font-medium">ticketsuupporting@gmail.com</a>
+                        <p class="text-sm text-gray-500 mt-2">دفتر مرکزی: اصفهان - خدمات آنلاین در ایران</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-  // Load content on page load
-  window.onload = () => {
-    showDashboard();
-  };
-</script>
+        <!-- Footer -->
+        <footer class="bg-gray-900 text-white py-12 relative overflow-hidden">
+            <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-teal-900/10 to-cyan-900/20"></div>
+            <div class="relative z-10">
+                <div class="container mx-auto px-4">
+                    <div class="text-center">
+                        <div class="flex items-center justify-center gap-3 mb-4">
+                            <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-cyan-600 rounded-lg flex items-center justify-center">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                                </svg>
+                            </div>
+                            <span class="text-xl font-bold">پارسیان</span>
+                        </div>
+                        <p class="text-gray-300 mb-6 max-w-md mx-auto">
+                            پیشرو در زمینه هوشمندسازی خانه و ساختمان
+                        </p>
+                        <p class="text-gray-400 text-sm">
+                            © 2025 PJA Group. تمامی حقوق محفوظ است.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
 
+    <script>
+        // Mouse follower effect
+        let mouseX = 50, mouseY = 50;
+        
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 100;
+            mouseY = (e.clientY / window.innerHeight) * 100;
+            updateMouseFollower();
+        });
+        
+        function updateMouseFollower() {
+            const follower = document.getElementById('mouseFollower');
+            const isDark = document.body.classList.contains('dark');
+            
+            const lightGradient = `radial-gradient(600px circle at ${mouseX}% ${mouseY}%, 
+                rgba(34, 197, 94, 0.15) 0%, 
+                rgba(59, 130, 246, 0.1) 40%, 
+                rgba(16, 185, 129, 0.08) 60%, 
+                transparent 100%)`;
+                
+            const darkGradient = `radial-gradient(800px circle at ${mouseX}% ${mouseY}%, 
+                rgba(34, 197, 94, 0.2) 0%, 
+                rgba(59, 130, 246, 0.15) 30%, 
+                rgba(16, 185, 129, 0.1) 50%, 
+                rgba(6, 182, 212, 0.05) 70%, 
+                transparent 100%)`;
+            
+            follower.style.background = isDark ? darkGradient : lightGradient;
+        }
+        
+        // Theme toggle
+        function toggleTheme() {
+            const body = document.body;
+            const sunIcon = document.getElementById('sunIcon');
+            const moonIcon = document.getElementById('moonIcon');
+            
+            body.classList.toggle('dark');
+            
+            if (body.classList.contains('dark')) {
+                body.className = body.className.replace('gradient-bg', 'gradient-bg-dark');
+                sunIcon.classList.add('hidden');
+                moonIcon.classList.remove('hidden');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                body.className = body.className.replace('gradient-bg-dark', 'gradient-bg');
+                sunIcon.classList.remove('hidden');
+                moonIcon.classList.add('hidden');
+                localStorage.setItem('theme', 'light');
+            }
+            
+            updateMouseFollower();
+        }
+        
+        // Load saved theme
+        const savedTheme = localStorage.getItem('theme');
+        if (savedTheme === 'dark') {
+            toggleTheme();
+        }
+        
+        // Send email function
+        function sendEmail(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const message = document.getElementById('message').value;
+            
+            if (message.trim()) {
+                const subject = 'پیام از سایت پارسیان';
+                const body = `پیام: ${message}${email ? `\n\nایمیل فرستنده: ${email}` : ''}`;
+                
+                window.open(
+                    `mailto:ticketsuupporting@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
+                    '_blank'
+                );
+                
+                // Reset form
+                document.getElementById('email').value = '';
+                document.getElementById('message').value = '';
+                
+                alert('پیام شما آماده ارسال است!');
+            }
+        }
+        
+        // Smooth scrolling for links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Initialize mouse follower
+        updateMouseFollower();
+    </script>
 </body>
 </html>
