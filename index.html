@@ -101,6 +101,13 @@
       background: rgba(0, 0, 0, 0.2);
     }
 
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+    }
+
     #logo {
       width: 60px;
       height: 60px;
@@ -109,14 +116,17 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 1rem;
       box-shadow: 0 4px 15px rgba(0, 188, 212, 0.3);
     }
 
-    #logo svg {
+    #logo img {
       width: 35px;
       height: 35px;
-      fill: white;
+      border-radius: 8px;
+    }
+
+    .header-text {
+      text-align: right;
     }
 
     h1 {
@@ -168,8 +178,8 @@
       right: -280px;
       width: 260px;
       height: 100%;
-      background: rgba(255, 255, 255, 0.95);
-      backdrop-filter: blur(10px);
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(15px);
       box-shadow: -4px 0 15px rgba(0,0,0,0.2);
       transition: right 0.3s ease;
       padding-top: 5rem;
@@ -178,10 +188,31 @@
     }
 
     body.dark .menu { 
-      background: rgba(20, 20, 30, 0.95); 
+      background: rgba(20, 20, 30, 0.85); 
     }
 
     .menu.open { right: 0; }
+
+    .menu-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1.5rem 1rem;
+      border-bottom: 1px solid rgba(0,0,0,0.1);
+      margin-bottom: 1rem;
+    }
+
+    body.dark .menu-header {
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+    }
+
+    .menu-close {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: inherit;
+    }
 
     .menu a {
       display: flex;
@@ -271,16 +302,16 @@
       fill: white;
     }
 
-    .card-icon.cart {
-      background: linear-gradient(135deg, #10b981, #059669);
-    }
-
     .card-icon.panel {
       background: linear-gradient(135deg, #00bcd4, #0066cc);
     }
 
     .card-icon.download {
       background: linear-gradient(135deg, #a855f7, #ec4899);
+    }
+
+    .card-icon.protocols {
+      background: linear-gradient(135deg, #10b981, #059669);
     }
 
     .card h3 {
@@ -291,6 +322,54 @@
     .card p {
       opacity: 0.8;
       font-size: 0.95rem;
+    }
+
+    .protocols-section {
+      margin-top: 3rem;
+      background: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      padding: 2rem;
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    body.dark .protocols-section {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .protocols-section h3 {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 1.6rem;
+    }
+
+    .protocols-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .protocol-item {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      border-radius: 10px;
+      text-align: center;
+      transition: transform 0.3s;
+    }
+
+    .protocol-item:hover {
+      transform: translateY(-3px);
+    }
+
+    .protocol-item h4 {
+      margin-bottom: 0.5rem;
+      font-size: 1.2rem;
+    }
+
+    .protocol-item p {
+      font-size: 0.9rem;
+      opacity: 0.8;
     }
 
     .chat-box {
@@ -449,22 +528,34 @@
     .hidden { display: none; }
 
     @media (max-width: 768px) {
+      .header-content {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+      
+      .header-text {
+        text-align: center;
+      }
+      
       .menu-toggle { display: inline-block; }
       .cards-grid { grid-template-columns: 1fr; }
       .chat-box input { min-width: 150px; }
+      .protocols-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body class="light">
 
 <header>
-  <div id="logo">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-      <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/>
-    </svg>
+  <div class="header-content">
+    <div id="logo">
+      <img src="https://raw.githubusercontent.com/parsasoorme1387/parsian/main/logo.png" alt="لوگوی پارسیان">
+    </div>
+    <div class="header-text">
+      <h1>کیت هوشمند سازی پارسیان</h1>
+      <p class="subtitle">مدیریت هوشمند وسایل خانه</p>
+    </div>
   </div>
-  <h1>کیت هوشمند سازی پارسیان</h1>
-  <p class="subtitle">مدیریت هوشمند وسایل خانه</p>
   
   <button class="theme-toggle" id="themeBtn">🌙</button>
   <button class="auth-toggle" onclick="showLogin()">🔐</button>
@@ -472,17 +563,18 @@
 </header>
 
 <div class="menu" id="menu">
-  <a href="javascript:void(0)" onclick="handleCart()">
-    🛒 سبد خرید
-  </a>
+  <div class="menu-header">
+    <h3>منو</h3>
+    <button class="menu-close" onclick="closeMenu()">✕</button>
+  </div>
   <a href="http://192.168.4.1" target="_blank">
     🏠 کنترل پنل
   </a>
-  <a href="javascript:void(0)" id="log-list" class="hidden" onclick="showUsers()">
-    👥 مشاهده کاربران
-  </a>
   <a href="https://i.diawi.com/jYurYF" target="_blank">
     ⬇ دانلود نرم‌افزار
+  </a>
+  <a href="javascript:void(0)" id="log-list" class="hidden" onclick="showUsers()">
+    👥 مشاهده کاربران
   </a>
 </div>
 
@@ -549,6 +641,11 @@
     menu.classList.toggle("open");
   }
 
+  // Close Menu
+  function closeMenu() {
+    menu.classList.remove("open");
+  }
+
   // Show Login
   function showLogin() {
     loginModal.classList.add("active");
@@ -588,6 +685,11 @@
       }
 
       showDashboard();
+      
+      // باز کردن خودکار منو بعد از لاگین
+      setTimeout(() => {
+        menu.classList.add("open");
+      }, 300);
     }
   };
 
@@ -599,16 +701,6 @@
         <p>به پنل مدیریت هوشمند پارسیان خوش آمدید</p>
         
         <div class="cards-grid">
-          <div class="card" onclick="handleCart()">
-            <div class="card-icon cart">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/>
-              </svg>
-            </div>
-            <h3>سبد خرید</h3>
-            <p>خرید محصولات هوشمند</p>
-          </div>
-
           <div class="card" onclick="window.open('http://192.168.4.1', '_blank')">
             <div class="card-icon panel">
               <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -628,9 +720,66 @@
             <h3>دانلود اپلیکیشن</h3>
             <p>نرم‌افزار موبایل</p>
           </div>
+          
+          <div class="card" onclick="showProtocols()">
+            <div class="card-icon protocols">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+              </svg>
+            </div>
+            <h3>پروتکل‌های پشتیبانی</h3>
+            <p>مشاهده پروتکل‌های هوشمندسازی</p>
+          </div>
+        </div>
+        
+        <div class="protocols-section" id="protocolsSection">
+          <h3>پروتکل‌های هوشمندسازی پشتیبانی شده</h3>
+          <div class="protocols-grid">
+            <div class="protocol-item">
+              <h4>MQTT</h4>
+              <p>پروتکل سبک برای ارتباط دستگاه‌های IoT</p>
+            </div>
+            <div class="protocol-item">
+              <h4>HTTP/HTTPS</h4>
+              <p>پروتکل استاندارد وب برای ارتباط با سرور</p>
+            </div>
+            <div class="protocol-item">
+              <h4>WebSocket</h4>
+              <p>ارتباط دوطرفه و زمان واقعی</p>
+            </div>
+            <div class="protocol-item">
+              <h4>Zigbee</h4>
+              <p>پروتکل کم‌مصرف برای شبکه‌های مش</p>
+            </div>
+            <div class="protocol-item">
+              <h4>Z-Wave</h4>
+              <p>پروتکل ارتباطی برای خانه هوشمند</p>
+            </div>
+            <div class="protocol-item">
+              <h4>Bluetooth LE</h4>
+              <p>ارتباط کم‌مصرف برای دستگاه‌های نزدیک</p>
+            </div>
+          </div>
         </div>
       </div>
     `;
+    
+    // مخفی کردن بخش پروتکل‌ها در ابتدا
+    document.getElementById('protocolsSection').style.display = 'none';
+  }
+
+  // Show Protocols
+  function showProtocols() {
+    const protocolsSection = document.getElementById('protocolsSection');
+    if (protocolsSection.style.display === 'none') {
+      protocolsSection.style.display = 'block';
+      window.scrollTo({
+        top: protocolsSection.offsetTop - 100,
+        behavior: 'smooth'
+      });
+    } else {
+      protocolsSection.style.display = 'none';
+    }
   }
 
   // Show Users (Admin only)
@@ -658,11 +807,6 @@
     html += '</div></div>';
     content.innerHTML = html;
     menu.classList.remove("open");
-  }
-
-  // Handle Cart
-  function handleCart() {
-    alert("❌ فعلاً سرویس در دسترس نمی‌باشد");
   }
 
   // Send Mail
