@@ -602,6 +602,8 @@
   </div>
 </div>
 
+<audio id="welcome" src="welcome.mp3" preload="auto"></audio>
+
 <script>
   const body = document.body;
   const themeBtn = document.getElementById("themeBtn");
@@ -612,6 +614,7 @@
   const loginModal = document.getElementById("loginModal");
   const loginForm = document.getElementById("loginForm");
   const chatInput = document.getElementById("chatInput");
+  const welcomeSound = document.getElementById("welcome");
 
   let userLogged = false;
   let currentUser = null;
@@ -677,6 +680,11 @@
       currentUser = newUser;
       loginModal.classList.remove("active");
 
+      // پخش صدا هنگام ورود
+      welcomeSound.play().catch(() => {
+        console.log("صدا پخش نشد");
+      });
+
       menu.style.display = "block";
       menuToggle.style.display = "inline-block";
 
@@ -708,7 +716,7 @@
               </svg>
             </div>
             <h3>کنترل پنل</h3>
-            <p>دسترسی به پنل ESP32</p>
+            <p> دسترسی به کنترل پنل</p>
           </div>
 
           <div class="card" onclick="window.open('https://i.diawi.com/jYurYF', '_blank')">
