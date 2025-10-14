@@ -1,23 +1,89 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="fa" dir="rtl" class="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>پارسیان - خانه هوشمند</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <title>پارسیان - خانه هوشمند نسل جدید</title>
+    <meta name="description" content="پیشرو در زمینه هوشمندسازی خانه و ساختمان با جدیدترین تکنولوژی‌های دنیا">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
+    
     <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            direction: rtl;
+        }
+        
         body {
             font-family: 'Inter', 'Vazirmatn', 'Segoe UI', 'Tahoma', sans-serif;
             font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+            background: #0c0c0c;
+            color: #f5f5f5;
+            overflow-x: hidden;
         }
         
-        .gradient-bg {
-            background: linear-gradient(135deg, #ffffff 0%, #f0fdf4 25%, #ecfeff 50%, #f0f9ff 75%, #ffffff 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 30s ease infinite;
+        /* Beautiful Scrollbar */
+        ::-webkit-scrollbar {
+            width: 12px;
+            height: 12px;
         }
         
+        ::-webkit-scrollbar-track {
+            background: rgba(15, 15, 25, 0.95);
+            border-radius: 10px;
+            margin: 4px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(
+                180deg,
+                rgba(34, 197, 94, 0.9) 0%,
+                rgba(16, 185, 129, 0.9) 25%,
+                rgba(6, 182, 212, 0.9) 50%,
+                rgba(14, 165, 233, 0.9) 75%,
+                rgba(59, 130, 246, 0.9) 100%
+            );
+            background-size: 100% 300%;
+            border-radius: 10px;
+            border: 2px solid rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            animation: scrollGradientFlow 8s ease infinite;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(
+                180deg,
+                rgba(34, 197, 94, 1) 0%,
+                rgba(16, 185, 129, 1) 25%,
+                rgba(6, 182, 212, 1) 50%,
+                rgba(14, 165, 233, 1) 75%,
+                rgba(59, 130, 246, 1) 100%
+            );
+            background-size: 100% 300%;
+            animation: scrollGradientFlow 4s ease infinite;
+            box-shadow: 
+                0 0 15px rgba(34, 197, 94, 0.5),
+                0 0 30px rgba(6, 182, 212, 0.3);
+            border-color: rgba(34, 197, 94, 0.5);
+        }
+        
+        @keyframes scrollGradientFlow {
+            0% { background-position: 0% 0%; }
+            50% { background-position: 0% 100%; }
+            100% { background-position: 0% 0%; }
+        }
+        
+        /* Animated gradient background */
         .gradient-bg-dark {
             background: linear-gradient(135deg, #0c0c0c 0%, #1a1a2e 50%, #16213e 100%);
             background-size: 400% 400%;
@@ -30,224 +96,796 @@
             100% { background-position: 0% 50%; }
         }
         
+        /* Mouse follower gradient */
+        #mouseFollower {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            transition: background 0.15s ease-out;
+        }
+        
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0; }
+        }
+        
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+        
+        .animate-fadeInUp {
+            animation: fadeInUp 0.6s ease-out;
+        }
+        
+        .animate-fadeInDown {
+            animation: fadeInDown 0.6s ease-out;
+        }
+        
+        .animate-scaleIn {
+            animation: scaleIn 0.5s ease-out;
+        }
+        
+        .animate-slideInRight {
+            animation: slideInRight 0.6s ease-out;
+        }
+        
+        .animate-slideInLeft {
+            animation: slideInLeft 0.6s ease-out;
+        }
+        
+        /* Hover effects */
         .hover-lift {
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: all 0.3s ease;
         }
         
         .hover-lift:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.15);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(34, 197, 94, 0.2);
         }
         
-        .mouse-follower {
-            position: fixed;
-            pointer-events: none;
-            width: 100vw;
-            height: 100vh;
-            top: 0;
-            left: 0;
-            z-index: 1;
-            transition: background 0.3s ease-out;
+        .hover-scale:hover {
+            transform: scale(1.05);
         }
         
-        /* Custom scrollbar */
-        ::-webkit-scrollbar {
-            width: 8px;
+        .hover-rotate:hover {
+            transform: rotate(360deg);
         }
         
-        ::-webkit-scrollbar-track {
-            background: transparent;
+        /* Glass effect */
+        .glass {
+            background: rgba(31, 41, 55, 0.5);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, rgba(34, 197, 94, 0.8), rgba(59, 130, 246, 0.8));
-            border-radius: 10px;
+        /* Chat box animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px) scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
         
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, rgba(34, 197, 94, 1), rgba(59, 130, 246, 1));
+        .chat-box-content {
+            animation: slideUp 0.3s ease-out;
         }
+        
+        /* Delayed animations */
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
     </style>
 </head>
-<body class="gradient-bg min-h-screen overflow-x-hidden">
-    <!-- Mouse Follower Effect -->
-    <div id="mouseFollower" class="mouse-follower"></div>
+<body class="gradient-bg-dark min-h-screen overflow-x-hidden">
+    <!-- Mouse Follower -->
+    <div id="mouseFollower"></div>
     
     <div class="relative z-10">
-        <!-- Header -->
-        <header class="fixed top-0 w-full bg-white/80 backdrop-blur-sm border-b border-gray-200/50 z-50">
-            <nav class="container mx-auto px-4 py-4">
-                <div class="flex items-center justify-between">
-                    <div class="flex items-center gap-3">
+        <!-- Navbar -->
+        <nav class="fixed top-0 left-0 right-0 z-50 bg-black/20 backdrop-blur-xl border-b border-white/10 animate-fadeInDown">
+            <div class="container mx-auto px-4">
+                <div class="flex items-center justify-between h-16">
+                    <!-- Logo -->
+                    <div class="flex items-center gap-3 hover-scale transition-all duration-300">
                         <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-cyan-600 rounded-lg flex items-center justify-center">
                             <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
                             </svg>
                         </div>
-                        <span class="text-xl font-bold text-gray-900">پارسیان</span>
+                        <span class="text-xl font-bold text-white">پارسیان</span>
                     </div>
-                    
+
+                    <!-- Desktop Menu -->
                     <div class="hidden md:flex items-center gap-8">
-                        <a href="#features" class="text-gray-700 hover:text-emerald-600 transition-colors">امکانات</a>
-                        <a href="#protocols" class="text-gray-700 hover:text-emerald-600 transition-colors">پروتکل‌ها</a>
-                        <a href="#contact" class="text-gray-700 hover:text-emerald-600 transition-colors">تماس</a>
+                        <a href="#home" class="text-gray-300 hover:text-emerald-400 transition-colors hover-scale">خانه</a>
+                        <a href="#features" class="text-gray-300 hover:text-emerald-400 transition-colors hover-scale">امکانات</a>
+                        <a href="#protocols" class="text-gray-300 hover:text-emerald-400 transition-colors hover-scale">پروتکل‌ها</a>
+                        <a href="#contact" class="text-gray-300 hover:text-emerald-400 transition-colors hover-scale">تماس</a>
                     </div>
-                    
-                    <button onclick="toggleTheme()" class="p-2 rounded-lg bg-gray-100 hover:bg-gray-200 transition-colors">
-                        <svg id="sunIcon" class="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
-                        </svg>
-                        <svg id="moonIcon" class="w-5 h-5 text-gray-700 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>
+
+                    <!-- Mobile Menu Button -->
+                    <button id="mobileMenuBtn" class="md:hidden text-white p-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                         </svg>
                     </button>
                 </div>
-            </nav>
-        </header>
+
+                <!-- Mobile Menu -->
+                <div id="mobileMenu" class="hidden md:hidden py-4 border-t border-white/10">
+                    <div class="flex flex-col gap-3">
+                        <a href="#home" class="py-2 text-gray-300 hover:text-emerald-400 transition-colors">خانه</a>
+                        <a href="#features" class="py-2 text-gray-300 hover:text-emerald-400 transition-colors">امکانات</a>
+                        <a href="#protocols" class="py-2 text-gray-300 hover:text-emerald-400 transition-colors">پروتکل‌ها</a>
+                        <a href="#contact" class="py-2 text-gray-300 hover:text-emerald-400 transition-colors">تماس</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
 
         <!-- Hero Section -->
-        <section class="pt-32 pb-20 px-4">
-            <div class="container mx-auto text-center">
-                <div class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-600 px-4 py-2 rounded-full mb-8">
-                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                    <span class="text-sm">نسل جدید خانه هوشمند</span>
-                </div>
-                
-                <h1 class="text-5xl md:text-7xl font-bold text-gray-900 mb-6">
-                    خانه <span class="bg-gradient-to-r from-emerald-600 to-cyan-600 bg-clip-text text-transparent">هوشمند</span> پارسیان
-                </h1>
-                
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto mb-12">
-                    آینده را به خانه خود بیاورید. با پارسیان، کنترل کامل خانه در دستان شماست.
-                </p>
-                
-                <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <button class="bg-gradient-to-r from-emerald-600 to-cyan-600 text-white px-8 py-4 rounded-xl font-medium hover-lift">
-                        شروع کنید
-                    </button>
-                    <button class="border-2 border-gray-300 text-gray-700 px-8 py-4 rounded-xl font-medium hover:border-emerald-500 hover:text-emerald-600 transition-colors">
-                        مشاهده دمو
-                    </button>
+        <section id="home" class="min-h-screen flex items-center justify-center pt-16">
+            <div class="container mx-auto px-4 py-20">
+                <div class="text-center max-w-4xl mx-auto">
+                    <div class="mb-8 animate-fadeInUp">
+                        <div class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-400 px-4 py-2 rounded-full mb-6">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            <span class="text-sm">جدیدترین تکنولوژی هوشمندسازی</span>
+                        </div>
+                    </div>
+
+                    <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight animate-fadeInUp delay-100">
+                        <span class="bg-gradient-to-l from-emerald-400 via-cyan-400 to-blue-400 bg-clip-text text-transparent">
+                            آینده خانه هوشمند
+                        </span>
+                        <br />
+                        <span class="text-white">در دستان شما</span>
+                    </h1>
+
+                    <p class="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto animate-fadeInUp delay-200">
+                        با پارسیان، خانه خود را به یک مرکز هوشمند تبدیل کنید. کنترل همه چیز با یک کلیک، از هر جای دنیا.
+                    </p>
+
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center mb-12 animate-fadeInUp delay-300">
+                        <button onclick="scrollToContact()" class="bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700 text-white px-8 py-4 rounded-xl font-medium hover-lift transition-all">
+                            شروع کنید
+                            <svg class="w-5 h-5 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+                            </svg>
+                        </button>
+                        
+                        <button class="border-2 border-gray-700 text-gray-300 hover:border-emerald-500 hover:text-emerald-400 px-8 py-4 rounded-xl font-medium transition-all">
+                            بیشتر بدانید
+                        </button>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mt-16">
+                        <div class="text-center animate-scaleIn delay-400 hover-lift">
+                            <div class="w-16 h-16 bg-gradient-to-br from-emerald-400 to-cyan-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                                </svg>
+                            </div>
+                            <h3 class="font-bold text-2xl mb-2 text-white">100%</h3>
+                            <p class="text-gray-300">امنیت داده‌ها</p>
+                        </div>
+                        
+                        <div class="text-center animate-scaleIn delay-500 hover-lift">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-purple-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/>
+                                </svg>
+                            </div>
+                            <h3 class="font-bold text-2xl mb-2 text-white">24/7</h3>
+                            <p class="text-gray-300">دسترسی آنلاین</p>
+                        </div>
+                        
+                        <div class="text-center animate-scaleIn delay-600 hover-lift">
+                            <div class="w-16 h-16 bg-gradient-to-br from-cyan-400 to-teal-500 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg">
+                                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                            </div>
+                            <h3 class="font-bold text-2xl mb-2 text-white">50%</h3>
+                            <p class="text-gray-300">صرفه‌جویی انرژی</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
 
         <!-- Features Section -->
-        <section id="features" class="py-20 bg-gray-50/50">
+        <section id="features" class="py-20 bg-gray-900/20">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-16">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-4">امکانات پیشرفته</h2>
-                    <p class="text-xl text-gray-600">تکنولوژی‌های مدرن برای زندگی راحت‌تر</p>
+                    <div class="inline-flex items-center gap-2 bg-cyan-500/10 text-cyan-400 px-4 py-2 rounded-full mb-6">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        <span class="text-sm">امکانات پیشرفته</span>
+                    </div>
+                    
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
+                        همه چیز در یک نگاه
+                    </h2>
+                    <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                        پارسیان تمام ابزارهای مورد نیاز برای هوشمندسازی خانه شما را فراهم می‌کند
+                    </p>
                 </div>
-                
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                     <!-- Feature 1 -->
-                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-8 hover-lift">
-                        <div class="w-16 h-16 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                    <div class="glass p-6 rounded-2xl hover-lift">
+                        <div class="w-14 h-14 bg-gradient-to-br from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg transition-transform duration-300 hover-rotate">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-4">کنترل روشنایی</h3>
-                        <p class="text-gray-600">
-                            کنترل هوشمند روشنایی تمام فضاهای خانه با قابلیت تنظیم شدت نور و رنگ
+                        <h3 class="text-xl font-bold text-white mb-3">کنترل هوشمند</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            دسترسی مستقیم به کنترل پنل برای مدیریت دستگاه‌های هوشمند
                         </p>
                     </div>
                     
                     <!-- Feature 2 -->
-                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-8 hover-lift">
-                        <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-2xl flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>
+                    <div class="glass p-6 rounded-2xl hover-lift">
+                        <div class="w-14 h-14 bg-gradient-to-br from-emerald-500 to-teal-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg transition-transform duration-300 hover-rotate">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-4">کنترل دما</h3>
-                        <p class="text-gray-600">
-                            تنظیم خودکار دمای خانه با حسگرهای پیشرفته و الگوریتم‌های هوشمند
+                        <h3 class="text-xl font-bold text-white mb-3">اپلیکیشن موبایل</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            نرم‌افزار موبایل برای کنترل راحت و سریع از هر مکان
                         </p>
                     </div>
                     
                     <!-- Feature 3 -->
-                    <div class="bg-white/70 backdrop-blur-sm rounded-2xl p-8 hover-lift">
-                        <div class="w-16 h-16 bg-gradient-to-br from-cyan-500 to-teal-600 rounded-2xl flex items-center justify-center mb-6">
-                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                    <div class="glass p-6 rounded-2xl hover-lift">
+                        <div class="w-14 h-14 bg-gradient-to-br from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg transition-transform duration-300 hover-rotate">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
                             </svg>
                         </div>
-                        <h3 class="text-xl font-bold text-gray-900 mb-4">امنیت پیشرفته</h3>
-                        <p class="text-gray-600">
-                            سیستم امنیتی 24/7 با دوربین‌های هوشمند و هشدارهای فوری
+                        <h3 class="text-xl font-bold text-white mb-3">تنظیمات پیشرفته</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            امکان تنظیمات دقیق و شخصی‌سازی کامل سیستم
                         </p>
+                    </div>
+                    
+                    <!-- Feature 4 -->
+                    <div class="glass p-6 rounded-2xl hover-lift">
+                        <div class="w-14 h-14 bg-gradient-to-br from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg transition-transform duration-300 hover-rotate">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">اتصال بی‌سیم</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            پشتیبانی از انواع پروتکل‌های ارتباطی مدرن
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 5 -->
+                    <div class="glass p-6 rounded-2xl hover-lift">
+                        <div class="w-14 h-14 bg-gradient-to-br from-cyan-500 to-blue-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg transition-transform duration-300 hover-rotate">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">امنیت بالا</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            رمزگذاری پیشرفته و حفاظت از اطلاعات شخصی
+                        </p>
+                    </div>
+                    
+                    <!-- Feature 6 -->
+                    <div class="glass p-6 rounded-2xl hover-lift">
+                        <div class="w-14 h-14 bg-gradient-to-br from-teal-500 to-blue-500 rounded-2xl flex items-center justify-center mb-6 shadow-lg transition-transform duration-300 hover-rotate">
+                            <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 15a4 4 0 004 4h9a5 5 0 10-.1-9.999 5.002 5.002 0 10-9.78 2.096A4.001 4.001 0 003 15z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-bold text-white mb-3">ذخیره ابری</h3>
+                        <p class="text-gray-300 leading-relaxed">
+                            پشتیبان‌گیری خودکار و دسترسی از همه جا
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Protocols Section -->
+        <section id="protocols" class="py-20">
+            <div class="container mx-auto px-4">
+                <div class="text-center mb-16">
+                    <div class="inline-flex items-center gap-2 bg-teal-500/10 text-teal-400 px-4 py-2 rounded-full mb-6">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                        </svg>
+                        <span class="text-sm">تکنولوژی‌های پشتیبانی</span>
+                    </div>
+                    
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
+                        پروتکل‌های هوشمندسازی
+                    </h2>
+                    <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                        پارسیان از جدیدترین و محبوب‌ترین پروتکل‌های ارتباطی دنیا پشتیبانی می‌کند
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                    <!-- Protocol Cards -->
+                    <div class="glass p-6 rounded-2xl hover-lift">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-300 hover-rotate">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-xl mb-2 text-white">MQTT</h3>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">کم‌مصرف</span>
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">سریع</span>
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">قابل اتکا</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 leading-relaxed">
+                            پروتکل سبک و قدرتمند برای ارتباط دستگاه‌های IoT با کیفیت بالا
+                        </p>
+                    </div>
+
+                    <div class="glass p-6 rounded-2xl hover-lift">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-300 hover-rotate">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-xl mb-2 text-white">HTTP/HTTPS</h3>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">امن</span>
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">استاندارد</span>
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">سازگار</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 leading-relaxed">
+                            پروتکل استاندارد وب با امنیت SSL برای ارتباط امن با سرورها
+                        </p>
+                    </div>
+
+                    <div class="glass p-6 rounded-2xl hover-lift">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-cyan-500 to-teal-600 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-300 hover-rotate">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 9l3 3-3 3m5 0h3M5 20h14a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-xl mb-2 text-white">WebSocket</h3>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">بلادرنگ</span>
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">دوطرفه</span>
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">سریع</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 leading-relaxed">
+                            ارتباط دوطرفه و بلادرنگ برای کنترل زمان واقعی دستگاه‌ها
+                        </p>
+                    </div>
+
+                    <div class="glass p-6 rounded-2xl hover-lift">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-orange-500 to-red-600 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-300 hover-rotate">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-xl mb-2 text-white">Zigbee</h3>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">مش نتورک</span>
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">کم‌مصرف</span>
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">خودترمیم</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 leading-relaxed">
+                            پروتکل کم‌مصرف برای شبکه‌های مش با برد متوسط
+                        </p>
+                    </div>
+
+                    <div class="glass p-6 rounded-2xl hover-lift">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-300 hover-rotate">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-xl mb-2 text-white">Z-Wave</h3>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">اختصاصی</span>
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">پایدار</span>
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">امن</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 leading-relaxed">
+                            پروتکل اختصاصی خانه هوشمند با امنیت و پایداری بالا
+                        </p>
+                    </div>
+
+                    <div class="glass p-6 rounded-2xl hover-lift">
+                        <div class="flex items-start gap-4 mb-4">
+                            <div class="w-12 h-12 bg-gradient-to-br from-teal-500 to-blue-600 rounded-xl flex items-center justify-center shadow-lg transition-transform duration-300 hover-rotate">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-xl mb-2 text-white">Bluetooth LE</h3>
+                                <div class="flex flex-wrap gap-1 mb-3">
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">کم‌مصرف</span>
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">نزدیک</span>
+                                    <span class="text-xs px-2 py-1 bg-gray-700/50 text-gray-300 rounded">آسان</span>
+                                </div>
+                            </div>
+                        </div>
+                        <p class="text-gray-300 leading-relaxed">
+                            ارتباط کم‌مصرف برای دستگاه‌های نزدیک با باتری طولانی
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Bottom CTA -->
+                <div class="bg-gradient-to-r from-emerald-600 via-teal-600 to-cyan-600 rounded-2xl p-8 text-white relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/20 via-teal-500/20 to-cyan-500/20 animate-pulse" style="animation-duration: 3s;"></div>
+                    <div class="relative z-10 text-center">
+                        <h3 class="text-2xl font-bold mb-4">پشتیبانی کامل از همه پروتکل‌ها</h3>
+                        <p class="text-emerald-100 mb-6 max-w-2xl mx-auto">
+                            تیم فنی پارسیان آماده پاسخگویی به سوالات شما در زمینه پیاده‌سازی و استفاده از این پروتکل‌ها می‌باشد
+                        </p>
+                        <div class="flex flex-wrap justify-center gap-4">
+                            <span class="px-4 py-2 bg-white/20 text-white border border-white/30 rounded-full text-sm">راهنمای نصب</span>
+                            <span class="px-4 py-2 bg-white/20 text-white border border-white/30 rounded-full text-sm">پشتیبانی فنی</span>
+                            <span class="px-4 py-2 bg-white/20 text-white border border-white/30 rounded-full text-sm">آپدیت رایگان</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="py-20 bg-gray-50/50">
+        <section id="contact" class="py-20 bg-gray-900/20">
             <div class="container mx-auto px-4">
                 <div class="text-center mb-16">
-                    <h2 class="text-4xl font-bold text-gray-900 mb-4">سوال دارید؟ بپرسید!</h2>
-                    <p class="text-xl text-gray-600">تیم پشتیبانی پارسیان آماده پاسخگویی به شما</p>
-                </div>
-                
-                <div class="max-w-2xl mx-auto bg-white/70 backdrop-blur-sm rounded-2xl p-8">
-                    <form onsubmit="sendEmail(event)">
-                        <div class="mb-6">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">ایمیل (اختیاری)</label>
-                            <input type="email" id="email" placeholder="email@example.com" class="w-full p-3 border border-gray-200 rounded-lg bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500">
-                        </div>
-                        
-                        <div class="mb-6">
-                            <label class="block text-sm font-medium text-gray-700 mb-2">پیام شما</label>
-                            <textarea id="message" rows="6" placeholder="سوال یا پیام خود را اینجا بنویسید..." class="w-full p-3 border border-gray-200 rounded-lg bg-white resize-none focus:outline-none focus:ring-2 focus:ring-emerald-500" required></textarea>
-                        </div>
-                        
-                        <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-cyan-600 text-white py-3 rounded-lg font-medium hover-lift">
-                            ارسال پیام
-                        </button>
-                    </form>
+                    <div class="inline-flex items-center gap-2 bg-emerald-500/10 text-emerald-400 px-4 py-2 rounded-full mb-6">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                        </svg>
+                        <span class="text-sm">در تماس باشید</span>
+                    </div>
                     
-                    <div class="mt-8 text-center">
-                        <p class="text-gray-600 mb-2">ایمیل پشتیبانی:</p>
-                        <a href="mailto:ticketsuupporting@gmail.com" class="text-emerald-600 font-medium">ticketsuupporting@gmail.com</a>
-                        <p class="text-sm text-gray-500 mt-2">دفتر مرکزی: اصفهان - خدمات آنلاین در ایران</p>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-white">
+                        سوال دارید؟ بپرسید!
+                    </h2>
+                    <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+                        تیم پشتیبانی پارسیان آماده پاسخگویی به سوالات شما در هر ساعت از شبانه‌روز می‌باشد
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Contact Form -->
+                    <div class="glass p-8 rounded-2xl animate-slideInRight">
+                        <h3 class="text-2xl font-bold mb-6 flex items-center gap-3 text-white">
+                            <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-cyan-600 rounded-xl flex items-center justify-center">
+                                <svg class="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                </svg>
+                            </div>
+                            ارسال پیام
+                        </h3>
+                        
+                        <form id="contactForm" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium mb-2 text-gray-300">نام شما</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    placeholder="نام خود را وارد کنید"
+                                    class="w-full p-3 border border-gray-700 rounded-lg bg-gray-900/50 text-white focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                                />
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium mb-2 text-gray-300">پیام شما</label>
+                                <textarea
+                                    id="message"
+                                    placeholder="سوال یا پیام خود را اینجا بنویسید..."
+                                    rows="6"
+                                    class="w-full p-3 border border-gray-700 rounded-lg bg-gray-900/50 text-white resize-none focus:outline-none focus:ring-2 focus:ring-emerald-500"
+                                    required
+                                ></textarea>
+                            </div>
+                            
+                            <button
+                                type="submit"
+                                class="w-full bg-gradient-to-r from-emerald-600 to-cyan-600 hover:from-emerald-700 hover:to-cyan-700 text-white py-3 rounded-lg font-medium hover-lift transition-all"
+                            >
+                                ارسال پیام
+                                <svg class="w-4 h-4 inline mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="space-y-6 animate-slideInLeft">
+                        <div class="glass p-6 rounded-2xl hover-lift">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg mb-2 text-white">ایمیل پشتیبانی</h3>
+                                    <p class="text-gray-300 break-all">ticketsuupporting@gmail.com</p>
+                                    <p class="text-sm text-gray-400 mt-1">
+                                        پاسخ در کمتر از 24 ساعت
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass p-6 rounded-2xl hover-lift">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg mb-2 text-white">ساعات کاری</h3>
+                                    <p class="text-gray-300">همه روزه، 24 ساعته</p>
+                                    <p class="text-sm text-gray-400 mt-1">
+                                        پشتیبانی آنلاین و بدون وقفه
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass p-6 rounded-2xl hover-lift">
+                            <div class="flex items-start gap-4">
+                                <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h3 class="font-bold text-lg mb-2 text-white">خدمات ویژه</h3>
+                                    <p class="text-gray-300">مشاوره رایگان نصب</p>
+                                    <p class="text-sm text-gray-400 mt-1">
+                                        راهنمایی کامل برای استفاده
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="bg-gradient-to-br from-emerald-500 via-teal-600 to-cyan-600 rounded-2xl p-6 text-white relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-r from-emerald-500/20 via-teal-500/20 to-cyan-500/20 animate-pulse" style="animation-duration: 3s;"></div>
+                            <div class="relative z-10">
+                                <h3 class="font-bold text-lg mb-2">پشتیبانی فوری</h3>
+                                <p class="text-emerald-100 text-sm mb-4">
+                                    برای مسائل فوری و بحرانی، از فرم مقابل استفاده کنید و موضوع را "فوری" ذکر نمایید.
+                                </p>
+                                <div class="flex items-center gap-2 text-sm">
+                                    <div class="w-2 h-2 bg-green-300 rounded-full" style="animation: pulse 2s infinite;"></div>
+                                    <span>آنلاین و آماده پاسخگویی</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Footer -->
-        <footer class="bg-gray-900 text-white py-12 relative overflow-hidden">
+        <footer class="relative bg-black text-white py-12 overflow-hidden">
             <div class="absolute inset-0 bg-gradient-to-br from-emerald-900/20 via-teal-900/10 to-cyan-900/20"></div>
             <div class="relative z-10">
                 <div class="container mx-auto px-4">
-                    <div class="text-center">
-                        <div class="flex items-center justify-center gap-3 mb-4">
-                            <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-cyan-600 rounded-lg flex items-center justify-center">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
-                                </svg>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                        <!-- Brand -->
+                        <div class="md:col-span-2">
+                            <div class="flex items-center gap-3 mb-4">
+                                <div class="w-10 h-10 bg-gradient-to-br from-emerald-500 to-cyan-600 rounded-lg flex items-center justify-center">
+                                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 3v2m6-2v2M9 19v2m6-2v2M5 9H3m2 6H3m18-6h-2m2 6h-2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"/>
+                                    </svg>
+                                </div>
+                                <span class="font-bold text-xl">پارسیان</span>
                             </div>
-                            <span class="text-xl font-bold">پارسیان</span>
+                            <p class="text-gray-300 mb-4 max-w-md">
+                                پیشرو در زمینه هوشمندسازی خانه و ساختمان. ما تکنولوژی روز دنیا را به خانه شما می‌آوریم.
+                            </p>
+                            <div class="flex gap-4">
+                                <a href="#" class="w-10 h-10 bg-gradient-to-br from-gray-800 to-gray-700 rounded-lg flex items-center justify-center hover:from-emerald-600 hover:to-cyan-600 transition-all duration-300 hover-scale">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                    </svg>
+                                </a>
+                                <a href="mailto:ticketsuupporting@gmail.com" class="w-10 h-10 bg-gradient-to-br from-gray-800 to-gray-700 rounded-lg flex items-center justify-center hover:from-emerald-600 hover:to-cyan-600 transition-all duration-300 hover-scale">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                                    </svg>
+                                </a>
+                                <a href="#" class="w-10 h-10 bg-gradient-to-br from-gray-800 to-gray-700 rounded-lg flex items-center justify-center hover:from-emerald-600 hover:to-cyan-600 transition-all duration-300 hover-scale">
+                                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                                        <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                    </svg>
+                                </a>
+                            </div>
                         </div>
-                        <p class="text-gray-300 mb-6 max-w-md mx-auto">
-                            پیشرو در زمینه هوشمندسازی خانه و ساختمان
+
+                        <!-- Links -->
+                        <div>
+                            <h3 class="font-bold text-lg mb-4 text-white">محصولات</h3>
+                            <ul class="space-y-2 text-gray-300">
+                                <li><a href="#" class="hover:text-emerald-400 transition-colors">کنترل پنل</a></li>
+                                <li><a href="#" class="hover:text-emerald-400 transition-colors">اپلیکیشن موبایل</a></li>
+                                <li><a href="#" class="hover:text-emerald-400 transition-colors">سنسورها</a></li>
+                                <li><a href="#" class="hover:text-emerald-400 transition-colors">کلیدهای هوشمند</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- Support -->
+                        <div>
+                            <h3 class="font-bold text-lg mb-4 bg-gradient-to-r from-emerald-400 to-cyan-400 bg-clip-text text-transparent">پشتیبانی</h3>
+                            <ul class="space-y-2 text-gray-300">
+                                <li><a href="#" class="hover:text-emerald-400 transition-colors">راهنمای نصب</a></li>
+                                <li><a href="#" class="hover:text-emerald-400 transition-colors">سوالات متداول</a></li>
+                                <li><a href="#contact" class="hover:text-emerald-400 transition-colors">تماس با ما</a></li>
+                                <li><a href="#" class="hover:text-emerald-400 transition-colors">گارانتی</a></li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
+                        <p class="text-gray-400 text-sm flex items-center gap-2">
+                            © 2025 PJA Group. ساخته شده با
+                            <svg class="w-4 h-4 text-red-500 fill-red-500" style="animation: heartBeat 1s infinite;" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                            </svg>
+                            در ایران
                         </p>
-                        <p class="text-gray-400 text-sm">
-                            © 2025 PJA Group. تمامی حقوق محفوظ است.
-                        </p>
+                        <div class="flex gap-6 mt-4 md:mt-0">
+                            <a href="#" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">حریم خصوصی</a>
+                            <a href="#" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">شرایط استفاده</a>
+                            <a href="#" class="text-gray-400 hover:text-emerald-400 text-sm transition-colors">قوانین</a>
+                        </div>
                     </div>
                 </div>
             </div>
         </footer>
     </div>
 
+    <!-- Floating Chat Button -->
+    <div id="chatBox" class="fixed bottom-6 left-6 z-50">
+        <!-- Chat Content -->
+        <div id="chatContent" class="hidden absolute bottom-20 left-0 w-72 glass rounded-2xl shadow-2xl p-6 border border-emerald-500/20 chat-box-content">
+            <button id="closeChatBtn" class="absolute top-3 right-3 text-gray-400 hover:text-white transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                </svg>
+            </button>
+            
+            <div class="mb-4">
+                <div class="w-12 h-12 bg-gradient-to-br from-emerald-500 to-cyan-600 rounded-full flex items-center justify-center mb-3">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+                    </svg>
+                </div>
+                <h3 class="font-bold text-white mb-2">سوالی دارید؟</h3>
+                <p class="text-sm text-gray-300 leading-relaxed">
+                    تیم پشتیبانی پارسیان آماده پاسخگویی به سوالات شماست
+                </p>
+            </div>
+            
+            <button onclick="scrollToContact()" class="w-full bg-gradient-to-r from-emerald-600 to-cyan-600 text-white py-3 rounded-xl font-medium hover:from-emerald-700 hover:to-cyan-700 transition-all hover-scale">
+                اینجا بپرسید
+            </button>
+        </div>
+
+        <!-- Chat Button -->
+        <button id="chatBtn" class="w-16 h-16 bg-gradient-to-br from-emerald-600 to-cyan-600 rounded-full flex items-center justify-center shadow-lg hover:shadow-emerald-500/50 transition-all hover-scale relative">
+            <svg id="chatIcon" class="w-7 h-7 text-white transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"/>
+            </svg>
+            <div id="chatPulse" class="absolute inset-0 bg-emerald-500 rounded-full -z-10" style="animation: pulse 2s infinite;"></div>
+        </button>
+    </div>
+
     <script>
-        // Mouse follower effect
+        // Mouse follower
         let mouseX = 50, mouseY = 50;
+        const mouseFollower = document.getElementById('mouseFollower');
         
         document.addEventListener('mousemove', (e) => {
             mouseX = (e.clientX / window.innerWidth) * 100;
@@ -256,93 +894,117 @@
         });
         
         function updateMouseFollower() {
-            const follower = document.getElementById('mouseFollower');
-            const isDark = document.body.classList.contains('dark');
-            
-            const lightGradient = `radial-gradient(600px circle at ${mouseX}% ${mouseY}%, 
-                rgba(34, 197, 94, 0.15) 0%, 
-                rgba(59, 130, 246, 0.1) 40%, 
-                rgba(16, 185, 129, 0.08) 60%, 
-                transparent 100%)`;
-                
-            const darkGradient = `radial-gradient(800px circle at ${mouseX}% ${mouseY}%, 
-                rgba(34, 197, 94, 0.2) 0%, 
-                rgba(59, 130, 246, 0.15) 30%, 
-                rgba(16, 185, 129, 0.1) 50%, 
-                rgba(6, 182, 212, 0.05) 70%, 
+            const gradient = `radial-gradient(900px circle at ${mouseX}% ${mouseY}%, 
+                rgba(34, 197, 94, 0.25) 0%, 
+                rgba(59, 130, 246, 0.18) 25%, 
+                rgba(16, 185, 129, 0.12) 45%, 
+                rgba(6, 182, 212, 0.08) 65%, 
+                rgba(14, 165, 233, 0.04) 80%, 
                 transparent 100%)`;
             
-            follower.style.background = isDark ? darkGradient : lightGradient;
+            mouseFollower.style.background = gradient;
         }
         
-        // Theme toggle
-        function toggleTheme() {
-            const body = document.body;
-            const sunIcon = document.getElementById('sunIcon');
-            const moonIcon = document.getElementById('moonIcon');
+        // Mobile menu
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const mobileMenu = document.getElementById('mobileMenu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+        
+        // Close mobile menu when clicking a link
+        document.querySelectorAll('#mobileMenu a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+        
+        // Chat box
+        const chatBtn = document.getElementById('chatBtn');
+        const chatContent = document.getElementById('chatContent');
+        const closeChatBtn = document.getElementById('closeChatBtn');
+        const chatIcon = document.getElementById('chatIcon');
+        const chatPulse = document.getElementById('chatPulse');
+        let chatOpen = false;
+        
+        // Auto-open after 3 seconds
+        setTimeout(() => {
+            chatContent.classList.remove('hidden');
+            chatPulse.style.display = 'none';
+            chatOpen = true;
             
-            body.classList.toggle('dark');
-            
-            if (body.classList.contains('dark')) {
-                body.className = body.className.replace('gradient-bg', 'gradient-bg-dark');
-                sunIcon.classList.add('hidden');
-                moonIcon.classList.remove('hidden');
-                localStorage.setItem('theme', 'dark');
+            // Auto-close after 5 seconds
+            setTimeout(() => {
+                chatContent.classList.add('hidden');
+                chatPulse.style.display = 'block';
+                chatOpen = false;
+            }, 5000);
+        }, 3000);
+        
+        chatBtn.addEventListener('click', () => {
+            chatOpen = !chatOpen;
+            if (chatOpen) {
+                chatContent.classList.remove('hidden');
+                chatIcon.style.transform = 'rotate(180deg)';
+                chatPulse.style.display = 'none';
             } else {
-                body.className = body.className.replace('gradient-bg-dark', 'gradient-bg');
-                sunIcon.classList.remove('hidden');
-                moonIcon.classList.add('hidden');
-                localStorage.setItem('theme', 'light');
+                chatContent.classList.add('hidden');
+                chatIcon.style.transform = 'rotate(0deg)';
+                chatPulse.style.display = 'block';
             }
-            
-            updateMouseFollower();
-        }
+        });
         
-        // Load saved theme
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            toggleTheme();
-        }
+        closeChatBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            chatContent.classList.add('hidden');
+            chatPulse.style.display = 'block';
+            chatOpen = false;
+        });
         
-        // Send email function
-        function sendEmail(event) {
-            event.preventDefault();
+        // Contact form
+        document.getElementById('contactForm').addEventListener('submit', (e) => {
+            e.preventDefault();
             
-            const email = document.getElementById('email').value;
+            const name = document.getElementById('name').value;
             const message = document.getElementById('message').value;
             
             if (message.trim()) {
-                const subject = 'پیام از سایت پارسیان';
-                const body = `پیام: ${message}${email ? `\n\nایمیل فرستنده: ${email}` : ''}`;
+                const subject = 'پیام جدید از سایت پارسیان';
+                const body = `نام: ${name || 'نامشخص'}\n\nپیام:\n${message}`;
                 
-                window.open(
-                    `mailto:ticketsuupporting@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`,
-                    '_blank'
-                );
+                window.location.href = `mailto:ticketsuupporting@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
                 
                 // Reset form
-                document.getElementById('email').value = '';
+                document.getElementById('name').value = '';
                 document.getElementById('message').value = '';
                 
+                // Show success message (simple alert)
                 alert('پیام شما آماده ارسال است!');
+            }
+        });
+        
+        // Smooth scroll
+        function scrollToContact() {
+            document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            if (chatOpen) {
+                chatContent.classList.add('hidden');
+                chatPulse.style.display = 'block';
+                chatOpen = false;
             }
         }
         
-        // Smooth scrolling for links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
                 if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             });
         });
         
-        // Initialize mouse follower
+        // Initialize
         updateMouseFollower();
     </script>
 </body>
